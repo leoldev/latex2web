@@ -1,0 +1,119 @@
+{
+  "pages": {
+    "site/ms.html": {
+      "fingerprint": "08538455b6f19516",
+      "shape": {
+        "sections": 30,
+        "h2": 11,
+        "h3": 12,
+        "paragraphs": 73,
+        "displayMath": 10,
+        "katexErrors": 0,
+        "figures": 9,
+        "images": 8,
+        "tables": 4,
+        "tableRows": 53,
+        "codeBlocks": 0,
+        "lists": 14,
+        "tocEntries": 10,
+        "captions": 9,
+        "anchors": 28,
+        "brokenImages": 0
+      },
+      "deadAnchors": [],
+      "missingTargets": []
+    },
+    "site/src.html": {
+      "fingerprint": "2b253821cb891f23",
+      "shape": {
+        "sections": 16,
+        "h2": 15,
+        "h3": 0,
+        "paragraphs": 84,
+        "displayMath": 101,
+        "katexErrors": 0,
+        "figures": 0,
+        "images": 0,
+        "tables": 0,
+        "tableRows": 0,
+        "codeBlocks": 0,
+        "lists": 4,
+        "tocEntries": 2,
+        "captions": 0,
+        "anchors": 15,
+        "brokenImages": 0
+      },
+      "deadAnchors": [],
+      "missingTargets": []
+    },
+    "site/dlc-slides-13-2-attention-mechanisms.html": {
+      "fingerprint": "6b828ce259e7be1d",
+      "shape": {
+        "sections": 34,
+        "h2": 1,
+        "h3": 0,
+        "paragraphs": 70,
+        "displayMath": 14,
+        "katexErrors": 0,
+        "figures": 14,
+        "images": 47,
+        "tables": 0,
+        "tableRows": 0,
+        "codeBlocks": 8,
+        "lists": 3,
+        "tocEntries": 2,
+        "captions": 8,
+        "anchors": 0,
+        "brokenImages": 0
+      },
+      "deadAnchors": [],
+      "missingTargets": []
+    },
+    "index.html": {
+      "fingerprint": "631d0a1a74d1350a",
+      "shape": {
+        "sections": 3,
+        "h2": 6,
+        "h3": 0,
+        "paragraphs": 19,
+        "displayMath": 0,
+        "katexErrors": 0,
+        "figures": 2,
+        "images": 1,
+        "tables": 0,
+        "tableRows": 0,
+        "codeBlocks": 1,
+        "lists": 7,
+        "tocEntries": 2,
+        "captions": 2,
+        "anchors": 3,
+        "brokenImages": 0
+      },
+      "deadAnchors": [],
+      "missingTargets": []
+    },
+    "site/docs.html": {
+      "fingerprint": "954c39815f9939dd",
+      "shape": {
+        "sections": 15,
+        "h2": 11,
+        "h3": 7,
+        "paragraphs": 48,
+        "displayMath": 2,
+        "katexErrors": 0,
+        "figures": 8,
+        "images": 0,
+        "tables": 1,
+        "tableRows": 10,
+        "codeBlocks": 7,
+        "lists": 14,
+        "tocEntries": 10,
+        "captions": 7,
+        "anchors": 15,
+        "brokenImages": 0
+      },
+      "deadAnchors": [],
+      "missingTargets": []
+    }
+  }
+}

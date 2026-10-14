@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+
+\title{Sample Document}
+\author{latex2web}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Purpose}
+This file exists so the build has a known-good input to render.
+Delete it once real content lands.
+
+\section{Math}
+Inline math like $e^{i\pi} + 1 = 0$ and display math:
+\begin{equation}
+  \int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}
+\end{equation}
+
+\subsection{Systems}
+\begin{align}
+  f(x) &= x^2 \\
+  g(x) &= \sin x + \cos x
+\end{align}
+
+\section{Lists}
+\begin{itemize}
+  \item Sections become headings and TOC entries.
+  \item Environments become styled blocks.
+  \item Cross-references resolve to anchors.
+\end{itemize}
+
+\end{document}

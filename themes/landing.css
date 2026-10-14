@@ -1,0 +1,1523 @@
+/*
+ * landing -- the front page of a project.
+ *
+ * The shape is a first screen and then the ordinary thing: a wordmark set well down the page, one sentence about what this is, the examples as buttons, a cue that the page continues, and from there a contents rail and sections in the same formatting as a document.
+ *
+ * The reason the hero is set low rather than at the top is that a project name pinned to the first forty pixels is a masthead, and this page already has one. Repeating the name 40px below the navigation says the same thing twice. Set it after some air, it reads as the subject of the page, which is what it is.
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --------------------------------------------------------------- chrome */
+
+.masthead {
+  border-bottom: 1px solid var(--line-soft);
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  position: sticky; top: 0; z-index: 20;
+}
+.masthead-inner {
+  max-width: calc(var(--measure) + var(--rail) + var(--sp-7) + var(--gutter) * 2);
+  margin-inline: auto;
+  /*
+   * No vertical padding on the bar: the trigger has to be as tall as the bar so that `top: 100%` on its menu is the bar's own lower edge. The bar's height comes from `masthead-h` instead, and the things inside it carry their own vertical padding, so the menu hangs from the rule rather than from the middle of the text.
+   */
+  padding-inline: var(--gutter);
+  min-height: calc(var(--masthead-h) * 1.18);
+  display: flex; align-items: stretch; gap: var(--sp-4);
+}
+.doc-nav {
+  /*
+   * Never wraps. The bar grew when the type in it grew, and with `nowrap` removed the second entry fell to a line of its own and sat above the bar's own top edge -- a nav item half off the top of the page. The bar is the width it is; the items in it are not negotiable.
+   */
+  display: flex; align-items: stretch; gap: var(--sp-4);
+  flex-wrap: nowrap; white-space: nowrap;
+  background: var(--bg);
+  margin-left: auto; font-family: var(--sans); font-size: var(--step--1);
+}
+/*
+ * The same ink as the trigger beside it.
+ *
+ * `Docs` and `Examples` are two entries in one bar at one size, and they were set in two different colours -- `--ink-faint` here and `--ink-soft` on the trigger the dropdown opens. Side by side that reads as "Examples" being the current page and "Docs" being switched off, and neither of those is true anywhere. Every entry in the bar is a place you can go, so every entry is written the same way.
+ */
+.doc-link { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid transparent; }
+.doc-link:hover { color: var(--ink); }
+.icon-link {
+  color: var(--ink-faint); display: inline-flex; align-items: center;
+  padding: 0.2rem; border-radius: var(--radius-sm);
+}
+.icon-link:hover { color: var(--ink); background: var(--bg-tint); }
+.drop-link { display: block; padding: 0.45rem 0.6rem; border-radius: var(--radius-sm); text-decoration: none; color: var(--ink-soft); }
+.drop-link:hover { background: var(--accent-soft); color: var(--accent-ink); }
+.drop-label { display: block; font-weight: 500; }
+.drop-note { display: block; font-size: 0.86em; color: var(--ink-faint); line-height: 1.35; }
+@media (max-width: 40rem) {
+}
+
+/*
+ * ------------------------------------------------------------------ hero
+ *
+ * The ground is graph paper.
+ *
+ * Two one-pixel rules on a two-rem grid, at a fraction of the `line-soft` value,
+ * masked so they are strongest behind the mark and gone before the fold. It is
+ * the one texture this subject has earned: a physics paper is plotted, a maths
+ * paper is ruled, and the grid says "figures are going to happen here" without
+ * putting a figure on the page. It is structure rather than decoration, which is
+ * why it is drawn in the rule colour and not in the accent.
+ */
+
+/*
+ * The name sits `hero-top` down the first screen, and the tagline under it.
+ *
+ * Centred on the *page*, not on the text column. With a contents rail on the left, centring inside the remaining column puts the name visibly right of the middle of the screen, which is the one thing a page's subject should never be. The header is full-bleed for the width of the viewport and centres itself within that, which is the only way to be centred on the screen rather than in a column of it.
+ */
+/*
+ * The hero: the first row of the shell, spanning it.
+ *
+ * The name, the sentence about the tool and the three examples are one thing -- the page's front matter -- and a contents rail beside them would be competing with the whole reason the page exists. The rail starts on the second row, level with the first section, which is the first thing the contents lists.
+ */
+/*
+ * The hero: the first row of the shell, spanning it.
+ *
+ * The name, the sentence about the tool and the three examples are one thing -- the page's front matter -- and a contents rail beside them would be competing with the whole reason the page exists. The rail starts on the second row, level with the first section, which is the first thing the contents lists.
+ *
+ * Set to a grid rather than centred.
+ *
+ * It was one centred column: mark, sentence, three equal cards, all on one axis at the horizontal centre of a 1440px screen. Symmetry is the one layout that carries no information, so it said nothing about which of those four things was the most important, and the eye was left to guess from size alone. It is a grid now with two unequal columns and a gap, and the sentence sits in the wide one while the three examples stack in the narrow one. That is a statement about the page: the prose is the subject, and the examples are the thing you go and look at. The card row also went, because three boxes of equal height with a title at the top and a credit at the bottom is a pricing table's shape, and this is not a pricing table.
+ */
+.hero {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  text-align: left;
+  max-width: none;
+  padding: var(--hero-top) var(--gutter) var(--sp-7);
+  margin: 0 0 0;
+}
+/* The mark, at the size a page's subject should be, against the left edge. */
+.hero .doc-title-mark .wordmark-svg { width: min(26rem, 84vw); margin-inline: 0; }
+/*
+ * The hero is two columns: what this is on the left, what it makes on the right.
+ *
+ * The mark and the sentence are the subject and the examples are the thing you go and look at, and putting them on one axis says they are the same kind of thing. So they get a column each, and the examples sit beside the hero rather than underneath it -- a list that starts level with the mark and runs down its right side, which is what a list of what the page makes is for.
+ *
+ * `1.1fr` against `1fr` rather than half and half: the mark is 26rem of wordmark and the sentence under it needs the room, while the list is three entries of short prose. The gap is one `--sp-7`, the same gutter the rest of the page's columns use, so the two halves read as two halves.
+ *
+ * `align-items: start`, so the list starts at the mark's own top edge instead of being stretched down the height of the wordmark above it.
+ */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--sp-7);
+  align-items: start;
+}
+  mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-repeat: repeat;
+}
+
+/*
+ * The equation the converter rendered, in the one place a reader decides whether
+ * to believe the tool.
+ *
+ * Set smaller than a display equation in a paper and given the label's ink, so it
+ * reads as evidence sitting in the sentence rather than as the second headline of
+ * the page. The measure is capped because an integral that runs the width of a
+ * column stops looking like notation and starts looking like a rule.
+ */
+.hero-front > .equation {
+  margin: 0;
+  max-width: 26rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.hero-front > .equation .katex { font-size: 1em; }
+/*
+ * Left, not centred.
+ *
+ * KaTeX centres a display equation, which is right inside a paper's measure and
+ * wrong here: the mark, the sentence, the install command and the label are all
+ * set hard against one left edge, and a centred integral in the middle of that
+ * column reads as a different page's element dropped into this one.
+ */
+.hero-front > .equation .katex-display { margin: 0; text-align: left; }
+/*
+ * `min-width: 0` on both items, which is the whole reason the columns are `minmax(0, ...)` and the thing that has to be said twice.
+ *
+ * A grid item's automatic minimum size is its *min-content* size, not zero. The hero is a grid item of the shell, so the shell sized the hero to fit the mark and the list side by side at their narrowest -- which is wider than the shell -- and the hero then hung out past the right edge of the page, taking the list's text with it. `minmax(0, 1fr)` on the tracks stops the tracks being widened; `min-width: 0` on the items stops the items overflowing the tracks. Both, or neither.
+ */
+.hero > .doc-header, .hero-front > p, .hero-front > .descriptions, .hero-front > .code-block { min-width: 0; }
+.hero > .doc-header { grid-column: 1; grid-row: 1; }
+/* The mark's own size is set where it is set, further down, with the reasoning. */
+.hero > .doc-header { max-width: none; margin: 0; padding: 0; }
+
+/*
+ * The install command, as one row: the command, and the control that copies it.
+ *
+ * It is a code block without the bar. Every other block on the site gets one -- what the block is on the left, what you can do to it on the right -- and here there is nothing to say about it: there is one line, it is shell, and a bar reading TEXT above a single command is a second box drawn around a first box for the sake of a word the reader already knows.
+ *
+ * The bar's own children are taken out of it with `display: contents`, which leaves the language label and the copy button as items of the row rather than of a header. The label is then hidden and the button kept, and what is left is the code with a control against the right edge of it -- one box, one row, and the control inside the thing it acts on rather than floating over it.
+ *
+ * `align-items: center`, not `stretch`. Stretch made both children fill the box, and a filled child is a tall child: the command sat with 31px of nothing above it and 31px below, in a box 81px tall around 19px of glyphs. It is one line of text. The box should be about as tall as the text.
+ */
+.hero > .code-block {
+  grid-column: 1; grid-row: 2;
+  display: flex; align-items: center;
+  /* No margin: the grid's `row` gap is the space above and below it. */
+  margin: 0;
+  /*
+   * The same corner every other code block has. It was square here, and
+   * `--radius-sm` on the layout's own `.code-block`, while the other four layouts
+   * used `--radius` -- so the same object arrived three ways on five sites, and
+   * the front page was the one that looked different.
+   */
+  border-radius: var(--radius);
+  /*
+   * No box shadow on this one only. It sits level with the mark and the sentence
+   * rather than among the section's own blocks, and a lifted box in the hero reads
+   * as a card where the hero is meant to read as the page saying what it is.
+   */
+  box-shadow: none;
+  /*
+   * As wide as the command and no wider. A grid item stretches by default, which
+   * left the box the full measure of the column with the command a third of the
+   * way across it and a wide empty stretch before the button -- a box drawn round
+   * a hole rather than round a thing. `max-width: 100%` keeps it inside the column
+   * on a phone, where the `pre` scrolls instead.
+   */
+  justify-self: start;
+  max-width: 100%;
+}
+/*
+ * The label's space to the list it introduces.
+ *
+ * A margin, not the grid's row gap, because the label and the list share a cell
+ * in the wide layout -- they are two items of one row, not two rows -- and the
+ * gap between them is the only thing separating a heading from what it heads.
+ * Enough to read as a heading and not a stray line, which at `--step--1` is one
+ * step up from the rule between two list rows below it.
+ */
+.hero > .code-block figcaption.code-bar {
+  /*
+   * The `.hero` prefix is not decoration. `.doc .code-block figcaption.code-bar`
+   * appears 1,000 lines further down this file with the *same* specificity --
+   * three classes and an element -- so the later one wins and this one did
+   * nothing at all. The bar stayed a flex row: its padding, its background and
+   * its border-bottom, stacked above the command instead of being taken apart
+   * into the single row the bar was meant to become.
+   */
+  display: contents;
+}
+.hero > .code-block .code-lang { display: none; }
+.hero > .code-block pre {
+  /* First in the row, and not because it comes first in the source: taking the bar's children out of it leaves them in source order, and the button is written before the `pre`. Without this the control sits at the left of the command it copies.
+   *
+   * The `.hero` is load-bearing. `.doc .code-block pre` sets this padding and has
+   * the same specificity without it, and it comes later in the file, so the block
+   * silently inherited `--sp-4` top and bottom and came out 94px tall around 18px
+   * of glyphs. */
+  order: 1;
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center;
+  padding: 0.18rem var(--sp-3);
+  /* Room at the right for the glyph, which sits on top of the block rather than beside it. */
+  padding-right: 1.7rem;
+  line-height: 1.05;
+  font-size: 0.72rem;
+}
+/*
+ * Centred on the line rather than in the corner.
+ *
+ * The shared rule puts the glyph at the bottom right, which is right for a block
+ * of twenty lines -- it sits under the last one, out of the text. This block is
+ * one line, so the bottom right corner is below the command rather than beside
+ * it, and the glyph read as something that had drifted out of the box. It is the
+ * end of the content either way.
+ */
+.hero > .code-block .copy {
+  order: 2;
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center;
+  border: 0; border-radius: 0;
+  padding: 0.18rem 0.3rem;
+  background: none;
+  top: 50%; bottom: auto;
+  transform: translateY(-50%);
+}
+
+/*
+ * The ledger is a box in the second column, from the top of the hero down.
+ *
+ * It holds the label and the list and nothing else, so the two are one flow and
+ * the label sits on the list's own edge, a margin above it.
+ *
+ * It starts level with the mark, not level with the sentence: the label
+ * introduces the right column, so it belongs at the top of that column rather
+ * than wherever the left column happens to run out. An earlier version wrapped
+ * the install command in here too and placed this box in row two, which is what
+ * put the whole ledger a paragraph below where it started.
+ *
+ * The command is not in this wrapper because the front matter is siblings in
+ * reading order -- the source writes the command, then the label, then the list.
+ * One wrapper holding all three means the command and the ledger can only share a
+ * cell, and each way of resolving that puts one of the two in the wrong place.
+ * `heroShell` in `src/index.js` lifts the command out so the two sit where each
+ * belongs.
+ */
+.hero-front { grid-column: 2; grid-row: 1 / span 2; }
+/*
+ * The rail, the sheet and the article share a row -- the row *below* the hero.
+ *
+ * They also share a column, which is the part that was missing. Sharing a row in a one-column grid is not the same as stacking: auto-placement fills the next free cell*, so the sheet took column one and `.main` was pushed to column two, and column two was implicit, so the grid made one. The hero spans `1 / -1` and so spanned both -- 35px wide on a 390px phone.
+ *
+ * They are also not placed here at all. Stating `grid-row: 2` for the sheet and for `.main` put them in the *same cell* -- a row and a column together name one box -- so the contents sheet was drawn straight over the first section heading, with both sets of words legible on top of each other.
+ *
+ * Left alone, they do the right thing on their own: in a one-column grid, auto-placement puts the sheet in row two and the article in row three, stacked, which is what a phone wants. The two-column layout has no such luck -- two auto-placed siblings in one row go side by side -- so *that* is where they are pinned, in the query below, and only there.
+ */
+.shell > .toc-rail, .shell > .toc-sheet, .shell > .main { grid-column: 1; }
+
+/*
+ * The title is the mark.
+ *
+ * Set as type it was a serif heading, which is a different object from the logo in the masthead directly above it -- one drawn, one written, four hundred pixels apart, looking like two products. It is drawn now, at the size the masthead uses, so the page names itself the same way twice.
+ */
+/*
+ * The mark, at the size a page's subject should be.
+ *
+ * It was set to `width: 7.5rem; height: auto` on an SVG that carries both a `width` and a `height` attribute, and the attribute won: the mark came out about 70 by 14 pixels -- a logo dropped into a heading's slot, smaller than the wordmark in the bar above it, on a page whose entire subject is that mark.
+ *
+ * Both dimensions are set explicitly and the ratio is stated, so it scales from its own geometry rather than from whichever attribute the browser picks.
+ */
+/*
+ * The mark, at the size a page's subject should be.
+ *
+ * It was set to `width: 7.5rem; height: auto` on an SVG that carries both a `width` and a `height` attribute, and the attribute won: the mark came out about 70 by 14 pixels -- a logo dropped into a heading's slot, smaller than the wordmark in the bar above it, on a page whose entire subject is that mark.
+ *
+ * Both dimensions are set explicitly and the ratio is stated, so it scales from its own geometry rather than from whichever attribute the browser picks.
+ */
+.hero .doc-title-mark { margin: 0 0 var(--sp-5); line-height: 0; }
+.hero .doc-title-mark .wordmark-svg {
+  /*
+   * It is the subject of the page, and it was set at the size of a heading. The hero is the one place on the site where the mark is allowed to be larger than the masthead's copy of it; everywhere else the two are the same size.
+   *
+   * 26rem, and not centred. Centred on a 1440px screen the mark was a 288px object in the middle of 1440 and the left third of the page was empty; set on the left edge it is the first thing the eye meets and the page has an anchor to come back to at every width.
+   */
+  width: min(26rem, 84vw);
+  height: auto;
+  /*
+   * Flush to the column's own left edge, not centred in it. Set against the left edge the mark is the first thing the eye meets and the page has an anchor to come back to at every width; the `margin-inline: 0` is what says so, because a mark drawn inside a centred header inherits the centring.
+   */
+  margin-inline: 0;
+  /*
+   * No `aspect-ratio` here, deliberately.
+   *
+   * The masthead's mark is drawn on a `0 0 132 26` viewBox, so `132 / 26` is its ratio and the hero used to restate it. The hero's mark is a different element with a different box: `-37 0 98 26`, 98 units wide, because the lambda hangs left of the origin and the viewBox is padded to hold it. Forcing `132 / 26` onto a 98-unit viewBox made the element's box wider than its content by a third, and SVG's default `preserve-aspect-ratio` then centres the drawing in that slack: 85px of dead space to the left of the glyph. It was invisible while the mark was centred, because a centred mark with symmetric padding is just a centred mark. Set against the left edge it was plainly indented.
+   *
+   * `width` with `height: auto` takes the ratio from the viewBox, which is the ratio the mark was drawn at, so there is nothing left to state.
+   */
+  display: block;
+  margin-inline: 0;
+  overflow: visible;
+}
+
+/*
+ * The sentence about the tool, in the hero's wide column.
+ *
+ * It was 1.06em in `--ink-soft` and centred: the largest piece of prose on the page was set smaller than the body text of the sections below it, which is backwards, and `--ink-soft` on a card-lit background is the softest contrast anywhere on the site. It is now `--step-1` in `--ink`, the second thing a visitor reads after the mark and above it in weight.
+ *
+ * Left-aligned with the mark above it. Centred prose under a left-set mark is two different alignments 2rem apart, and the eye reads the pair as an accident rather than as a choice.
+ *
+ * Pinned to column one rather than auto-placed. The hero's grid has two columns and three children: two paragraphs and the list of examples. Auto-placement fills row by row, so the first paragraph took column one, the second took column two, and the list of examples -- the third thing in the source and the second thing on the page -- was pushed to the second row of column one, under the prose, at the full width of the narrow column. The two paragraphs of one thought ended up as two columns of two unrelated thoughts.
+ */
+/*
+ * The label over the list of examples.
+ *
+ * It is the one line of the hero that is not the mark and not a work, so it is set as what it is: a quiet line in the sans, a step below the body size, in the soft ink, with the arrow that points at the list beside it. Not a small-caps strapline and not `--step-1` in `--ink` -- it is a label, and the largest type on the page after a mark should be a work by name.
+ *
+ * It is the hero grid's second row of column one, under the sentence, sharing its left edge and its measure. It needs no margin: the grid's `row` gap is the space above it, and a margin inside a grid cell is a second, competing answer to the same question.
+ */
+.hero-front > p {
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  line-height: 1.4;
+  color: var(--ink-soft);
+  max-width: none;
+  margin: 0 0 var(--sp-6);
+  /*
+   * Flush left, on the ledger's own edge, directly above it.
+   *
+   * It was in column one under the install command, and it was right-aligned at
+   * the far side of column one, and both were wrong for the same reason: the
+   * label was somewhere other than the thing it labels. In column one it sat in
+   * an empty band with its arrow pointing at a gutter. Right-aligned it came to
+   * the edge of the column and sat level with the *second* entry of a list that
+   * starts above it, so it read as a caption for that entry.
+   *
+   * A header belongs on top of its column. The label and the list are now one
+   * flow -- `.hero-front` is a box again, holding both -- so the space between
+   * them is a margin rather than the leftover height of a grid row the mark
+   * happens to be in. Placed as its own grid item in column two it cleared the
+   * mark's row and then sat a screen above the first entry, which is the same
+   * detachment with a different address.
+   */
+  text-align: left;
+}
+
+/*
+ * The label's arrow, a character rather than a drawn shape.
+ *
+ * It was a `$\rightarrow$` in the source, which bakes a right-pointing arrow into the markup and points it right on every screen -- including the narrow ones, where the label sits directly above the list and the arrow points at nothing beside it. It is now the same character, emitted by the stylesheet, so the query that knows the geometry can change which one it is.
+ *
+ * Down, U+2193, in both layouts. The label sits directly above the list it
+ * introduces, so down is the direction there is something in. An arrow along the
+ * baseline was pointing at a gutter, and up and out was pointing off the page.
+ *
+ * A character rather than two borders and a rotation: an arrow is a word in a script, it has a weight and a direction that a reader who does not see the page still has in their reader, and the codepoint says which one it is without a stylesheet.
+ */
+.hero-front > p::after {
+  content: "\2193";
+  margin-left: 0.45rem;
+  color: var(--ink-faint);
+}
+
+/*
+ * Below the breakpoint the hero is one column and the list is under the label again, so the arrow points down -- which is the character in both layouts now, so nothing here changes it.
+ *
+ * Stacked at 52rem rather than 46rem: at 46rem the mark alone is 26rem and the sentence under it is 36rem of measure, and splitting that across two columns leaves neither readable -- the list would have been a column of three words to the right of a wordmark.
+ */
+@media (max-width: 52rem) {
+  .hero { grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); }
+  /*
+   * Stacked, in the order they are read: the mark and the sentence, then the
+   * install command, then the label and the list.
+   *
+   * Three grid rows: the header, the command, the ledger. The command needs a
+   * margin here rather than the row gap it gets in the wide layout -- the gap is
+   * between grid rows and the command's own bottom margin is what separates it
+   * from the label below.
+   *
+   * The ledger's `grid-column: 2` has to come off as well as its row: in a
+   * one-column grid `grid-column: 2` is not ignored, there is no column two, so
+   * the grid makes an implicit one and puts the ledger off to the right of a hero
+   * that is supposed to be stacked.
+   */
+  .hero > .doc-header { grid-row: 1; grid-column: 1; }
+  .hero > .code-block { grid-row: 2; grid-column: 1; max-width: none; margin-bottom: var(--sp-5); }
+  .hero-front { grid-row: 3; grid-column: 1; }
+  /*
+   * The mark is drawn from a viewBox with no padding, so at 84vw on a 390px phone the glyphs run to within a few pixels of the gutter. The left edge of the mark is inset from the text below it, which is the one thing that makes a logo look like it was dropped in rather than set.
+   */
+  .hero .doc-title-mark .wordmark-svg { width: min(17rem, 82vw); }
+}
+
+/*
+ * The examples, under the label.
+ *
+ * A `description` list, because that is what the source writes: a work and its details. The default rendering is a term in ink and a definition indented under it, which is right for a glossary and wrong here -- the three entries want to read as three comparable rows with the titles aligned down the column, and an indent breaks the alignment that makes them comparable.
+ *
+ * So the definitions come back out to the margin, level with the titles above them.
+ *
+ * Ruled rather than boxed, and the rules are what makes it read as one object: a hairline between rows, a heavy one opening and closing the list. Three bordered boxes say "three separate widgets"; one ruled list says "three entries in a list", which is the truth, and it is the shape an index has.
+ *
+ * `gap: 0` and the space between rows carried on the terms instead, because a uniform grid gap puts the same space between a title and its own details as between one work and the next, and the two are not neighbours.
+ *
+ * No width cap: it is the narrow column of the hero's grid, and the grid has already decided how wide it is.
+ */
+.hero-front .descriptions {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.hero-front .descriptions dt {
+  display: block;
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--serif);
+  font-size: var(--step-0);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.008em;
+}
+/*
+ * The list's opening rule, in the ink rather than in a line colour. It is the one heavy mark on the page and it is what the three rows are read against.
+ */
+.hero-front .descriptions dt:first-of-type {
+  border-top: 2px solid var(--ink);
+  padding-top: var(--sp-3);
+}
+.hero-front .descriptions dd {
+  margin: 0.4rem 0 var(--sp-3);
+  padding-bottom: 0;
+}
+.hero-front .descriptions dd:last-of-type {
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: var(--sp-3);
+}
+/*
+ * An arrow on each title, saying the title goes somewhere.
+ *
+ * It replaces a numeral. The source wrote `01`, `02`, `03` as the description list's own labels, and they were decoration pretending to be information: three consecutive numbers say "these are items", which the rules above them already say, and they say it in a column of their own, so every title started two characters in from the rule that was supposed to be its left edge. An arrow carries what the column did not -- that the title is a link and there is somewhere to go -- and it sits after the title where a link's affordance belongs.
+ *
+ * U+2192, the same character the label above uses, so the two marks on the page are visibly the same mark. Faint at rest and solid on hover, which is the only state change: an arrow that moves is an arrow that is animating for no reason.
+ */
+.hero-front .descriptions dt a::after {
+  content: "\2192";
+  margin-left: 0.45rem;
+  opacity: 0.45;
+  transition: opacity 0.16s ease;
+}
+.hero-front .descriptions dt a:hover::after,
+.hero-front .descriptions dt a:focus-visible::after { opacity: 1; }
+/*
+ * The source no longer writes a numeral inside the term, so there is nothing to style here any more. The rule is kept, deliberately and empty of intent, for the case where somebody writes one back: `code` in a term arrives with the mono face and a sunken background, which on its own is a chip the size of a badge, and a term that carries a label should not carry a badge. It is stripped back to the mono face so it reads as a label and not as something you can click.
+ */
+.hero-front .descriptions dt code {
+  background: none;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: 0.78em;
+  font-weight: 400;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.hero-front .descriptions dd p {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.hero-front .descriptions dt a {
+  color: var(--ink);
+  text-decoration: none;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  text-underline-offset: 0.18em;
+}
+/*
+ * Hover is a rule that appears, not a colour that changes.
+ *
+ * The title is `--ink` at rest, which is the same colour as the body text, so a hover that only recoloured the text would have nowhere to go. Growing an underline under the term is the one signal that survives both a light and a dark palette without borrowing the link colour for something that is not a link, and it stays under 300ms.
+ */
+.hero-front .descriptions a {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  transition: background-size 160ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.hero-front .descriptions a:hover,
+.hero-front .descriptions a:focus-visible { background-size: 100% 1px; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-front .descriptions a { transition: none; }
+}
+
+/*
+ * Nothing to release on a phone: the front matter is one column at every width, so there are no pins and no `grid-column` to undo.
+ *
+ * This is worth a note, because the hero *was* a two-column grid and there were two attempts at a narrow-screen rule for it. Both looked correct in the source and both were wrong.
+ *
+ * The first put the release beside `.hero-front`, which is *before* two of the rules it was undoing. At equal specificity the later rule wins whatever any query says about it, so the hero stayed two columns on a phone: a `min-width` query and a `max-width` query do not compete, source order is decided first and only then does the query.
+ *
+ * The second moved it to the end of the hero, which fixed the cascade and then found the real problem: the closing paragraph used `grid-column: 1 / -1`, which reads "from the first line to the last". In a grid with one explicit column the last line is line two: there is no second column, so `-1` *made* one. The grid became two tracks, the headline went into the `1fr` one and the list into the implicit one, which is sized by its own content, and the headline came out forty pixels wide set one word to a line beside a list that had taken the rest of the page.
+ *
+ * Both faults are gone for the same reason: the front matter is a block now, so there is no grid, no implicit column and nothing to override.
+ */
+.doc .doc-title {
+  font-size: var(--step-4); line-height: 1.02; letter-spacing: -0.035em;
+  margin: 0 auto var(--sp-4); font-weight: 600;
+  max-width: 20ch; text-wrap: balance;
+}
+.doc .doc-byline {
+  font-family: var(--sans); font-size: var(--step-0);
+  color: var(--ink-soft); margin: 0 auto; max-width: 44rem;
+  line-height: 1.55; text-wrap: pretty;
+}
+
+/*
+ * The same rule, for the byline in the hero -- where it is the tagline, and so the second thing a visitor reads.
+ *
+ * It needed its own selector because `.doc .doc-byline` never matched here: in the hero the header is lifted out of `.doc` and sat directly under `.hero`, so the descendant combinator had no `.doc` to find and the rule silently did not apply. With no `max-width` the tagline took the full 832px of the shell, which is a hundred and thirty characters of measure on a centred line -- wide enough that the break lands wherever the arithmetic puts it and nowhere near a clause, and it had been breaking inside "docs-style".
+ */
+/*
+ * The byline in the hero, where it is the source's own one-line description of the tool and so the second thing a visitor reads.
+ *
+ * It needed its own selector because `.doc .doc-byline` never matched here: in the hero the header is lifted out of `.doc` and sits directly under `.hero`, so the descendant combinator has no `.doc` to find and the rule silently did not apply. With no `max-width` it took the full width of the shell, which is a hundred and thirty characters of measure on one line.
+ *
+ * Left-set, on the measure of the sentence below it, because it is the same kind of object as that sentence and sits directly above it. Centred under a left-set mark it read as the one line in the hero that did not know where the page began.
+ */
+.hero .doc-byline {
+  margin: 0 0 var(--sp-3);
+  max-width: 34rem;
+  font-size: var(--step-0);
+  color: var(--ink-soft);
+  text-align: left;
+  text-wrap: pretty;
+}
+/*
+ * The author slot is a span with no box of its own, so the byline's measure has to be stated on it too -- otherwise the span fills whatever width the byline has, which is how an unbounded line got out of a bounded parent.
+ */
+.hero .doc-byline .author-name { display: inline; }
+.doc-byline .sep { opacity: 0.5; margin-inline: 0.35em; }
+
+/*
+ * The first paragraph of the article, under a section heading. Left-set at the reading measure, like every other paragraph in the article -- it is the same object, and the only reason it was ever different is that the hero lifted its copy of the rule into a centred one.
+ */
+.doc > p.lead, .doc > p:first-of-type {
+  font-size: 1.05em; line-height: 1.5; color: var(--ink-soft);
+  max-width: var(--measure); margin: 0 auto var(--sp-2); text-align: left;
+  text-wrap: pretty;
+}
+
+/*
+ * The examples are a `description` list now, not an `itemize`, and the whole block of card rules that used to live here is gone with it.
+ *
+ * They were three boxes with a hairline, a translucent fill and a hover that lifted them two pixels. Three equal-height bordered boxes with a title at the top and a credit at the bottom is the shape of a pricing table, and what they were listing was three papers. The hover lift was also the only animation on the page, on three elements that are links and would have been links without it.
+ *
+ * What replaced it is in the hero section above, and it is deliberately not boxes: three ruled rows of unequal height, each one a work and its details.
+ */
+/*
+ * The `\newline` the source wrote between a card's title and its credit.
+ *
+ * Inside a flex column it becomes an anonymous item of its own -- a line break that is also a box -- which is what left a hand's width of dead air in the middle of every card. The gap above does that job now, and it is the same gap in all three.
+ */
+/* ------------------------------------------------------------ scroll cue
+
+   Pinned to the top of the display, so it is there at any page height and at any
+   scroll position. It fades out once the reader is past the hero, because by then
+   they have; a cue that stays after it has been obeyed is furniture. It is a link
+   to the first thing below the fold, so it works with no script at all -- the
+   fade is the only part that needs any, and it degrades to always-visible. */
+.scroll-cue {
+  position: fixed; top: calc(var(--masthead-h) + 0.6rem); left: 50%;
+  transform: translateX(-50%); z-index: 25;
+  display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--sans); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  text-decoration: none; color: var(--ink-soft);
+  background: color-mix(in srgb, var(--bg-raised) 92%, transparent);
+  border: 1px solid var(--line); border-radius: 999px;
+  box-shadow: var(--shadow);
+  backdrop-filter: saturate(180%) blur(10px);
+}
+.scroll-cue:hover { color: var(--accent-ink); border-color: var(--accent); }
+.scroll-cue::after {
+  content: ""; width: 0.44rem; height: 0.44rem;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-0.12rem) rotate(45deg);
+}
+.scroll-cue[hidden] { display: none; }
+/*
+ * Off the bottom of a very short page there is nowhere to scroll to, so a cue pinned to the top would be the only thing on the screen.
+ */
+@media (max-height: 30rem) { .scroll-cue { display: none; } }
+
+/* ----------------------------------------------------------------- layout */
+
+.shell {
+  max-width: calc(var(--measure) + var(--rail) + var(--sp-7) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding: var(--sp-6) var(--gutter) var(--sp-8);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+.shell > .toc-rail { display: none; }
+.shell > .toc-sheet { display: block; }
+
+/*
+ * A rule under the hero, closing the first screen.
+ *
+ * The hero and the contents below it are two different kinds of thing -- one is the front of the page, the other is the front of the document -- and nothing said so. The rule is on the hero's own edge rather than drawn across row two of the grid, because a pseudo-element there lands at the top of the row: 81px below the cards and 10px above the word "CONTENTS", which is not a boundary, it is a stray line that has picked a side. On the hero it sits with the hero's own padding above it and the grid's gap below, which is balanced by construction.
+ */
+.hero { border-bottom: 1px solid var(--line-soft); }
+/* Nothing above the rule but the hero, so it does not want the grid's gap twice. */
+.hero { margin-bottom: 0; padding-bottom: var(--sp-8); }
+/*
+ * air between the last card and the rule, so the hero reads as a first screen that ends rather than as a row of buttons that stops.
+ */
+.hero-front { margin-bottom: var(--sp-6); }
+
+/*
+ * The rail must be the last word on its own visibility. `.toc-rail` is hidden by the base rule above and only shown once there is room for a second column, so the media query has to come after it or the cascade gives the base rule.
+ *
+ * The rail is on the *left*, before the text, in the order the document reads. A contents that sits to the right of the prose is a column the eye has to travel across the page to reach; on the left it is where the eye already starts.
+ */
+/*
+ * Which of the two contents navigations is in the page, and where the article sits beside it.
+ *
+ * Every selector here is written as `.shell > X` on both sides of the breakpoint. That is not a style choice, it is arithmetic: `.shell > .toc-rail` is two classes and `.toc-rail` is one, so a bare selector inside a media query *loses* to a descendant-qualified one outside it, however much later it is written. The first version of this got it exactly backwards -- the narrow rules were added below the query, so at 1440 the rail stayed `display: none`, the sheet stayed visible, and `.main` landed in the rail's column at 208px wide.
+ *
+ * `paper.css` avoids the trap by accident: its base rule is `.toc-rail { display: none }`, the same specificity as the query's, so source order decides. Stating it on both sides is the version that does not depend on remembering that.
+ */
+@media (min-width: 62rem) {
+  .shell > .toc-sheet { display: none; }
+  .shell > .toc-rail {
+    display: block; order: 0; grid-column: 1; grid-row: 2;
+    position: sticky; top: calc(var(--masthead-h) + var(--sp-3));
+    max-height: calc(100vh - var(--masthead-h) - var(--sp-7));
+    overflow-y: auto; overscroll-behavior: contain;
+    padding-right: var(--sp-4); border-right: 1px solid var(--line-soft);
+  }
+  .shell {
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: var(--sp-7);
+  }
+  .shell > .main { grid-column: 2; grid-row: 2; }
+}
+
+/*
+ * The rail belongs to the two-column layout and to nothing else.
+ *
+ * `paper.css` has had this rule since the rail was written; `landing.css` did not, and it only ever set `display: block` *inside* the wide query. So below 62rem the landing page laid an empty rail out as a grid item.
+ *
+ * An empty grid item is still an item. It took the first cell of row two, which pushed `.main` -- auto-placed, `grid-column: auto` -- into the next free cell, and that cell was in a column nothing had declared, so the grid made one. Two columns where one was asked for: `0px` and `331px`, with the 24px gap between them. The hero spans `1 / -1`, so it spanned both and came out 35px wide on a 390px phone, which took the tagline to one word per line.
+ *
+ * It also meant the page had no contents on a phone at all, because the fallback sheet below was hidden unconditionally -- the two rules cancelled out and left neither navigation in place.
+ */
+
+/*
+ * The sheet is the whole navigation on a narrow screen: a real box with a real summary to tap, its own scroll so a long contents cannot push the article off the bottom of the display, and two columns so it does not eat the first view on its own. Ported from `notes.css`, which had it; `landing.css` had the `display: none` and none of the rest.
+ */
+.toc-sheet {
+  margin-bottom: var(--sp-5);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--bg-raised); overflow: hidden;
+}
+.toc-sheet > summary {
+  font-family: var(--sans); font-size: var(--step--1); font-weight: 600;
+  padding: var(--sp-3) var(--sp-4); cursor: pointer; list-style: revert;
+  color: var(--ink-soft);
+  display: flex; align-items: center; gap: var(--sp-2);
+}
+.toc-sheet > summary::after {
+  content: ""; margin-left: auto; width: 0.42rem; height: 0.42rem;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translate(-0.1rem, -0.1rem);
+  transition: transform 0.18s ease;
+}
+.toc-sheet[open] > summary::after { transform: rotate(-135deg) translate(-0.15rem, -0.15rem); }
+.toc-sheet[open] { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+/*
+ * The strip's reading line.
+ *
+ * Quiet, because it updates on every scroll and a louder label would be a flickering subtitle over the article. And it is allowed to be cut short: a section called "2 Description of the method and the data we use" has to leave the summary row with its own height rather than making the whole bar two lines.
+ */
+.toc-sheet .now {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-weight: 500; color: var(--ink-faint);
+}
+.toc-sheet .toc { padding: 0 var(--sp-3) var(--sp-3); }
+.toc-sheet .toc-title { display: none; }
+.toc-sheet .toc-list a {
+  padding: 0.5em 0.6em; min-height: 2.4em;
+  border-radius: var(--radius-sm); border-left-width: 2px;
+}
+.toc-sheet[open] .toc {
+  max-height: min(34vh, 19rem); overflow-y: auto; overscroll-behavior: contain;
+}
+@media (max-width: 48rem) {
+  .toc-sheet .toc-list { columns: 2; column-gap: var(--sp-3); }
+  .toc-sheet .toc-list li { break-inside: avoid; }
+  .toc-sheet .toc-list .toc-list { columns: 1; }
+}
+
+.toc-rail .toc-title {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--ink-faint); margin: 0 0 var(--sp-3);
+}
+.toc-rail .toc-list { list-style: none; margin: 0; padding: 0; }
+.toc-rail .toc-list .toc-list { padding-left: var(--sp-3); }
+.toc-rail .toc-list li { margin: 0; }
+.toc-rail .toc-list a {
+  display: block; padding: 0.28rem 0.5rem;
+  font-family: var(--sans); font-size: 0.84rem; line-height: 1.35;
+  color: var(--ink-soft); text-decoration: none;
+  border-left: 2px solid transparent; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.toc-rail .toc-list a:hover { background: var(--accent-soft); color: var(--accent-ink); }
+.toc-rail .toc-list a.is-active {
+  color: var(--accent-ink); background: var(--accent-soft);
+  border-left-color: var(--accent);
+}
+.toc-rail .toc-num {
+  display: inline-block; min-width: 1.6em;
+  font-family: var(--mono); font-size: 0.86em; color: var(--ink-faint);
+}
+.toc-rail .toc-list .toc-list .toc-num { display: none; }
+
+/* ----------------------------------------------------------------- content */
+
+.main { min-width: 0; }
+
+/*
+ * The document is as wide as the shell, and the *sections* are what carry the reading measure.
+ *
+ * That is what lets the hero, the tagline and the row of buttons be centred on the page while the prose below stays a readable column. Centring the header inside the reading measure instead would put it right of the middle of the screen, next to the rail.
+ */
+.doc { max-width: none; margin-inline: 0; }
+.doc > section { max-width: var(--measure); margin-inline: auto; }
+
+.doc h1, .doc h2, .doc h3, .doc h4 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.22; }
+.doc h1 { font-size: var(--step-3); margin: 0 0 var(--sp-4); }
+.doc h2 {
+  font-size: var(--step-2); margin: 0 0 var(--sp-4);
+  padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-soft);
+  position: relative; text-wrap: balance;
+}
+.doc h3 { font-size: var(--step-1); margin: var(--sp-5) 0 var(--sp-3); }
+.sec-num {
+  display: inline-block; margin-right: 0.5em;
+  font-family: var(--mono); font-size: 0.72em; font-weight: 500;
+  color: var(--accent); vertical-align: 0.12em;
+}
+.anchor {
+  position: absolute; left: -0.85em; top: 0; color: var(--ink-faint);
+  text-decoration: none; opacity: 0; transition: opacity 0.15s ease;
+  font-weight: 400; font-family: var(--mono); font-size: 0.7em;
+}
+.doc h2:hover .anchor, .doc h3:hover .anchor, .anchor:focus-visible { opacity: 1; }
+
+.doc p { margin: 0 0 var(--sp-4); text-wrap: pretty; }
+.doc ul, .doc ol { margin: 0 0 var(--sp-4); padding-left: 1.35em; }
+.doc li { margin: 0 0 var(--sp-2); }
+.doc li::marker { color: var(--ink-faint); }
+.doc code, .doc kbd {
+  font-family: var(--mono); font-size: 0.86em;
+  background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  border-radius: 4px; padding: 0.08em 0.32em;
+}
+.doc a.link { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 0.14em; }
+.doc a.link-external::after {
+  content: "\2197"; font-size: 0.8em; vertical-align: 0.15em;
+  margin-left: 0.15em; color: var(--ink-faint);
+}
+
+.code-block {
+  /*
+   * No padding on the box itself.
+   *
+   * The `figcaption` above the code and the `pre` below it each carry `--sp-4` of their own, so the block was padding the code twice: 32px of dead space down each side, on every code block on the page. It also cost the code its width -- 64px of a column that has to fit a 51-character command without scrolling. The bar and the code keep their padding; the box between them does not need any.
+   */
+  margin: 0 0 var(--sp-5); padding: 0;
+  background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  /*
+   * The one radius a code block has.
+   *
+   * It was `--radius-sm` here and `--radius` in the other four layouts, and the
+   * install box on the front page was square -- so the same object arrived three
+   * different ways on five sites, and the front page was the one that looked
+   * different. A code block is code: the one thing on a page that is neither
+   * prose nor furniture, and the last thing that should have an opinion about
+   * its own corners.
+   */
+  border-radius: var(--radius); overflow-x: auto;
+  font-family: var(--mono); font-size: 0.84rem; line-height: 1.55;
+}
+.code-block code { background: none; border: 0; padding: 0; font-size: 1em; }
+
+.float { margin: var(--sp-6) 0; text-align: center; }
+.float img, .inline-img {
+  box-sizing: border-box; display: block; margin-inline: auto;
+  max-width: 100%; height: auto; border-radius: var(--radius-sm);
+  background: var(--figure-plate, #fff); border: 1px solid var(--line-soft);
+  padding: 2px;
+}
+.float figcaption, .caption-only {
+  font-family: var(--sans); font-size: var(--step--1); color: var(--ink-faint);
+  text-align: center; line-height: 1.5; margin-top: var(--sp-3);
+}
+.float-grid {
+  display: grid; gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+}
+.float-cols { align-items: stretch; }
+.float-col { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); min-width: 0; }
+.float-cols .float-col > p {
+  margin: 0; text-align: center; font-family: var(--sans);
+  font-size: var(--step--1); font-weight: 600; color: var(--ink-soft);
+}
+.float-cols .float-col img { height: clamp(8rem, 15vw, 17rem); width: auto; max-width: 100%; object-fit: contain; }
+html[data-theme="dark"] { --figure-plate: #fbfaf7; }
+@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) { --figure-plate: #fbfaf7; } }
+
+.table { margin: var(--sp-5) 0; overflow-x: auto; }
+.table table { border-collapse: collapse; width: 100%; font-family: var(--sans); font-size: 0.86rem; }
+.table th {
+  font-size: 0.76em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--ink-soft); text-align: left; white-space: nowrap;
+  padding: 0.42em 0.6em; border-bottom: 1.5px solid var(--line);
+}
+.table td {
+  padding: 0.32em 0.6em; border-bottom: 1px solid var(--line-soft); text-align: left;
+}
+.table tbody tr:last-child td { border-bottom: 1.5px solid var(--line); }
+.table-grouped th + th, .table-grouped td + td { border-left: 1px solid var(--line-soft); }
+
+.citeref a { text-decoration: none; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+.citeref a:hover { text-decoration: underline; }
+.ref-key { font-family: var(--mono); font-size: 0.86em; }
+.ref-num { color: var(--ink-faint); margin-right: 0.4em; font-variant-numeric: tabular-nums; }
+.references { margin-top: var(--sp-7); }
+.ref-list { list-style: none; padding: 0; margin: 0; counter-reset: none; }
+.ref-entry {
+  display: flex; gap: 0.1rem; margin: 0 0 var(--sp-2);
+  font-size: 0.94rem; line-height: 1.5;
+}
+.ref-body { color: var(--ink-soft); }
+.ref-note {
+  font-family: var(--sans); font-size: var(--step--1); color: var(--ink-faint);
+  margin: 0 0 var(--sp-4); max-width: 40rem;
+}
+
+.callout {
+  margin: var(--sp-5) 0; padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-tint); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.callout p:last-child { margin-bottom: 0; }
+/*
+ * The label is a paragraph, and the prose rule above is `.doc p`.
+ *
+ * That is (0,1,1) -- one class and one element -- against this rule's (0,1,0), so the prose rule wins on specificity as well as on source order: the label was getting `--sp-4` of bottom margin instead of the `--sp-1` asked for here, which put a blank line between "Warning" and the sentence under it on every callout and every abstract. The box's own padding is the space; the label's margin is only the gap to the text it introduces, and the two are not the same thing.
+ *
+ * Paragraphs inside a box are the general case: a callout, an abstract and a notice each carry their own padding and their own rhythm, and a prose margin inside one is a margin nobody chose. Reset to a paragraph rhythm the box can reason about, and let the box do the spacing.
+ */
+.doc .callout-kind, .doc .abstract-title { margin-bottom: var(--sp-1); }
+.callout > p:first-child, .abstract > p:first-child { margin-top: 0; }
+.callout p, .abstract p { margin-bottom: var(--sp-2); }
+.callout p:last-child, .abstract p:last-child { margin-bottom: 0; }
+
+.callout-kind {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 650;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent); margin: 0 0 var(--sp-1) !important;
+}
+.callout-tone-info, .callout-tone-tip, .callout-tone-warn, .callout-tone-danger {
+  border: 1px solid; border-left-width: 4px; border-radius: var(--radius-sm); padding: var(--sp-4);
+}
+.callout-tone-info { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 28%, transparent); }
+.callout-tone-tip { background: color-mix(in srgb, #1f8a5f 12%, var(--bg-raised)); border-color: color-mix(in srgb, #1f8a5f 34%, transparent); }
+.callout-tone-warn { background: color-mix(in srgb, #d9a406 16%, var(--bg-raised)); border-color: color-mix(in srgb, #b07d2b 45%, transparent); }
+.callout-tone-danger { background: color-mix(in srgb, #d64545 12%, var(--bg-raised)); border-color: color-mix(in srgb, #c0392b 40%, transparent); }
+
+.abstract {
+  margin: var(--sp-6) 0; padding: var(--sp-4) var(--sp-5);
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); border-radius: var(--radius);
+}
+.abstract-title {
+  font-family: var(--serif); font-size: var(--step--1); font-weight: 600;
+  letter-spacing: 0.02em; color: var(--ink-soft); margin: 0 0 var(--sp-3);
+}
+.abstract p:last-child { margin-bottom: 0; }
+
+.colophon {
+  margin-top: var(--sp-8); padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-family: var(--sans); font-size: var(--step--1); color: var(--ink-faint);
+}
+.colophon .sep { opacity: 0.45; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 60;
+  background: var(--bg-raised); color: var(--ink);
+  padding: 0.6rem 1rem; border: 1px solid var(--accent); border-radius: var(--radius-sm);
+}
+.skip:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ------------------------------------------------------------------ motion
+
+   Off unless `motion: on`. See the note in paper.css.
+
+   The duration was 0.45s, which is long enough to be noticed as motion rather
+   than registered as a section having arrived -- four hundred milliseconds of
+   translate and fade is an animation, and an animation on a page that advertises
+   "no animation unless it is asked for" is the wrong thing to be asked for. It
+   only ever animates opacity and transform, and it sits behind `data-motion`
+   *and* `prefers-reduced-motion: no-preference` besides, so at the setting this
+   page ships (`off`) none of it runs at all. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="on"] .doc section,
+  html[data-motion="on"] .abstract,
+  html[data-motion="on"] .callout,
+  html[data-motion="on"] .float { animation: rise 0.28s cubic-bezier(0.2, 0.7, 0.3, 1) backwards; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ------------------------------------------------------------------- print */
+
+@media print {
+  :root {
+    --bg: #fff; --bg-raised: #fff; --bg-sunken: #fff; --bg-tint: #fff;
+    --ink: #000; --ink-soft: #222; --ink-faint: #555;
+    --line: #bbb; --line-soft: #ddd; --accent: #000; --accent-ink: #000;
+  }
+  html[data-theme] { color-scheme: light; }
+  .masthead, .toc-rail, .toc-sheet, .scroll-cue, .copy, .anchor, .skip { display: none !important; }
+  .shell { display: block; max-width: none; padding: 0; }
+  .doc { max-width: none; }
+  .float, .figure, .code-block, .abstract, .callout { break-inside: avoid; }
+  .doc h2, .doc h3 { break-after: avoid; }
+}
+
+/*
+ * ---- the wordmark
+ *
+ * It is an SVG rather than text for one reason: it is a link, and text inside a link looks like a link. It underlined and it went blue on hover, so a logo read as an unstyled hyperlink sitting in the masthead. Drawn rather than written, it has no link colour, no underline and no visited state to fight -- it is simply the logo, and the link is invisible.
+ *
+ * The name is on the `<a>` as `aria-label` and the SVG is `aria-hidden`, because an SVG carries no text for a screen reader to read.
+ */
+a.wordmark {
+  display: inline-flex; align-items: center;
+  text-decoration: none; color: inherit; border-radius: var(--radius-sm);
+}
+a.wordmark:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* Inside the bar, which no longer has vertical padding of its own. */
+.masthead-inner > a.wordmark { display: flex; align-items: center; flex: 0 0 auto; }
+/*
+ * A bare link in the bar is a flex box, not a block.
+ *
+ * The bar stretches its children so that a dropdown trigger fills the bar's height. A plain link is not a flex container, so stretched to the same height its text stayed on the first line and "Docs" sat at the top of the bar, half above the page, while the dropdown next to it was centred.
+ */
+.doc-nav { margin-left: auto; flex: 0 0 auto; }
+.doc-nav > .doc-link { display: flex; align-items: center; }
+.drop-toggle { padding-block: 0.7rem; font-size: 0.95rem; }
+.doc-nav > .icon-link { align-self: center; }
+.wordmark-svg { display: block; height: 1.75rem; width: auto; overflow: visible; }
+.wordmark-svg .wordmark-lambda { fill: var(--accent); }
+.wordmark-svg .wordmark-rest { fill: var(--ink); }
+.wordmark-svg .wordmark-dim { fill: var(--ink-faint); }
+a.wordmark:hover .wordmark-rest { fill: var(--accent-ink); }
+a.wordmark:hover .wordmark-dim { fill: var(--accent); }
+
+/*
+ * ---- the front page, tidied
+ *
+ * Three things were making it read as a page rather than a package.
+ *
+ * The section headings had no rule and no space above them, so a run of them was a list of bold lines in a column with no indication of where one stops. They have a hairline above them now, at the measure's edge, and enough air above to be a boundary.
+ *
+ * The code block was a flat grey slab. It is a terminal: it gets a title rule, a little more air inside, and a prompt in the second accent so the commands in it separate from the output.
+ *
+ * And the footer was a centred line of small print with a middot separator. It is a colophon: it sits on a rule, at the measure, with the name in the wordmark's own ink.
+ */
+
+.doc > section { position: relative; }
+.doc > section + section { margin-top: var(--sp-6); }
+
+.hero + .toc-rail + .main > .doc > section:not(:first-child)::before {
+  content: ""; display: block;
+  height: 1px; background: var(--line-soft);
+  margin-bottom: var(--sp-5);
+}
+
+@media (min-width: 62rem) {
+  .doc > section:not(:first-child)::before { margin-bottom: var(--sp-6); }
+}
+
+.doc > section > h2 {
+  font-size: var(--step-2);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 var(--sp-4);
+  text-wrap: balance;
+}
+.doc > section > h3 {
+  font-size: var(--step-1);
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  font-weight: 600;
+  margin: var(--sp-5) 0 var(--sp-3);
+}
+
+/* A section's number, set apart from the word it numbers. */
+
+/*
+ * Code as a terminal: a rule across the top, more air inside, and the prompt in the second accent so a command reads differently from its output.
+ */
+.doc .code-block {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: var(--sp-5) 0;
+  background: var(--bg-sunken);
+}
+.doc .code-block figcaption {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-tint);
+  padding: 0.28rem var(--sp-3);
+}
+.doc .code-block pre {
+  padding: var(--sp-3) var(--sp-4);
+  margin: 0;
+  line-height: 1.5;
+  tab-size: 2;
+}
+.doc .code-block .tok-comment { opacity: 0.85; }
+/*
+ * An unnamed block has no bar to show. A `figcaption` with nothing in it is still a box, and it was a hand's width of empty grey above the first line of every code block on the page.
+ */
+.doc .code-block > figcaption:empty,
+.doc .code-block > figcaption:has(> :only-child:empty) { display: none; }
+
+.colophon {
+  margin: var(--sp-7) 0 0;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line-soft);
+  max-width: var(--measure);
+  margin-inline: auto;
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+}
+.colophon .sep { opacity: 0.45; margin-inline: 0.3em; }
+
+/*
+ * ---- the type scale, stepped
+ *
+ * The values are fixed and this is where they change. A `clamp()` with a `vw` term makes the size of the text a function of the width of the window, so dragging a window edge re-wraps the whole document on every frame -- on a long paper, hundreds of paragraphs of line-breaking work, sixty times a second, for a difference nobody asked for.
+ *
+ * Four steps, at the breakpoints where a layout actually changes shape. Between them the type is exactly the same size at every window width, which means resizing moves the layout in whole jumps instead of continuously.
+ *
+ * The selector is `:root:root` and not `:root`. The palette writes its tokens into a `:root` block that lands near the end of the file, after this one, and at equal specificity the later declaration wins -- so the steps were silently overwritten and every width got the base size. Doubling the pseudo-class is not a hack here; it is the statement that these are overrides of something written elsewhere.
+ *
+ * The measure steps with it, for the same reason and with the same effect: a column that changes width continuously re-wraps as you drag.
+ */
+@media (min-width: 40rem) {
+  :root:root {
+    --step-0: 1.125rem;
+    --step-1: 1.25rem;
+    --step-2: 1.5rem;
+    --step-3: 1.875rem;
+    --step-4: 2.5rem;
+    --measure: 38rem;
+    --hero-top: 4.5rem;
+  }
+}
+@media (min-width: 62rem) {
+  :root:root {
+    --step-0: 1.1875rem;
+    --step-1: 1.3125rem;
+    --step-2: 1.625rem;
+    --step-3: 2.0625rem;
+    --step-4: 2.75rem;
+    --measure: 40rem;
+    --hero-top: 6.5rem;
+  }
+}
+@media (min-width: 80rem) {
+  :root:root {
+    --step-0: 1.25rem;
+    --step-1: 1.375rem;
+    --step-2: 1.75rem;
+    --step-3: 2.25rem;
+    --step-4: 3rem;
+    --measure: 42rem;
+    --hero-top: 8.5rem;
+  }
+}
+
+/*
+ * ---- dropdowns in the masthead
+ *
+ * The arrow points left, and it means what it looks like it means: the menu is over there, to the left. A down arrow promises a panel below the trigger, and a masthead has no room below it -- the trigger is in the bar at the very top, so a panel opened downward would have to overlap the page it is meant to be navigating away from. It is right-aligned to its trigger, so it opens toward the inside of the page rather than out past the edge.
+ *
+ * Opened by `:hover`, and by `:focus-within` for anyone on a keyboard. The button underneath is what a touch screen gets, and what a click toggles.
+ *
+ * One line per option. The menu used to carry a second line describing the page, which made three options six lines tall and read as a paragraph. A masthead menu is a list of places.
+ */
+.drop { position: relative; display: flex; align-items: stretch; }
+.drop-toggle {
+  /*
+   * Large enough to read without effort and to be a target. The bar was carrying 0.85em of its own 0.85em, so the labels came out at about 12px in a 19px face -- the smallest thing on the page, in the place the eye goes first.
+   */
+  font: inherit; font-family: var(--sans); font-size: 0.95rem;
+  font-weight: 500; letter-spacing: -0.003em;
+  background: none; border: 0; padding: 0.15rem 0; margin: 0;
+  cursor: pointer; color: var(--ink-soft);
+  /*
+   * One line height on both the trigger and the options. They are centred in the same box, and centring aligns boxes rather than baselines -- so with two different line heights the options sat a few pixels below the word that opened them, which read as the row not being straight.
+   */
+  line-height: 1.25;
+  display: flex; align-items: center;
+}
+.drop-toggle:hover, .drop:focus-within .drop-toggle { color: var(--ink); }
+
+/*
+ * The arrow. A triangle, not a chevron: a chevron has an up and a down and animates between them, and there is nothing to animate between here -- it points at the menu, and it keeps pointing at it while the menu is open.
+ */
+/*
+ * The arrow, on the leading side, and it turns.
+ *
+ * It was a trailing chevron and it did not do anything: a triangle has no "down" state, so pointing it at the menu meant the one thing it could not say was whether the menu was open.
+ *
+ * On the left, because the options are on the left -- an arrow trailing the word points away from them. And it turns a quarter on its own when they appear, so the state is in the control rather than only in the reader's memory.
+ */
+.drop-toggle::before {
+  content: ""; display: inline-block;
+  width: 0; height: 0;
+  margin-right: 0.45rem;
+  border-top: 0.32rem solid transparent;
+  border-bottom: 0.32rem solid transparent;
+  border-right: 0.44rem solid currentColor;
+  opacity: 0.55;
+  transition: transform 0.16s ease, opacity 0.16s ease;
+}
+/*
+ * Which way it turns.
+ *
+ * The arrow is a triangle drawn with `border-right`, so it points *left* -- which is right, because that is where the options are. Turning it a quarter clockwise made it point up, and an up-arrow at the top of a page is a scroll cue: on a page with nothing above it, the one control that says "go somewhere" was saying "go back". A quarter turn anticlockwise gives left-to-down, which is the ordinary reading of a control that has just opened and is now offering to close.
+ */
+.drop:hover .drop-toggle::before,
+.drop:focus-within .drop-toggle::before,
+.drop[data-open="true"] .drop-toggle::before {
+  transform: rotate(-90deg);
+  opacity: 0.85;
+}
+
+/*
+ * The menu is part of the bar it hangs from.
+ *
+ * It was a rounded, shadowed box floating 0.55rem below the trigger, which is a tooltip: something that appeared because the pointer was nearby and would vanish when it left. A menu is not that -- it is the bar, opened. So it is flush against the bar's edge with no gap, no radius on the corners that meet the bar, and no shadow: the same surface, the same border weight, continuing downwards and to the left.
+ */
+/*
+ * The menu is the bar, opened.
+ *
+ * It was a separate object under the bar: opaque where the bar is translucent and blurred, with its own border all the way round, so the two read as a tooltip floating below a header. So it borrows the bar's own surface -- the same translucent mix and the same backdrop blur -- and drops its top border, and the trigger is made as tall as the bar's content box so that `top: 100%` is the bar's own lower edge rather than the bottom of the text in it.
+ *
+ * The bar's bottom border runs behind it: the menu is above the bar in the stacking order, so where the two meet the rule is continuous, and the bar looks like it grew a drawer rather than like it spawned a popup.
+ */
+/*
+ * The menu is a run of options in the bar, to the left of its trigger.
+ *
+ * It was a panel: three options stacked in a rounded, bordered, shadowed box that hung below the bar. A masthead is one line high, and a panel under it is a popup -- it covers the page, it has to be dismissed, and its three items are three lines where the bar has room for one.
+ *
+ * So the options join the bar instead. They sit in the empty run between the wordmark and the trigger, on the bar's own baseline, separated by rules the way a row of links is, with no border and no shadow because there is no box: the thing that was added to the bar is part of the bar. The trigger's arrow points left, which is where they are.
+ */
+.drop-menu {
+  position: absolute; right: calc(100% + 0.6rem); top: 0; z-index: 30;
+  height: 100%;
+  display: flex; align-items: center;
+  padding-inline: 0.15rem;
+  opacity: 0; visibility: hidden; transform: translateX(0.4rem);
+  transition: opacity 0.13s ease, transform 0.13s ease, visibility 0.13s;
+}
+.drop:hover .drop-menu,
+.drop:focus-within .drop-menu,
+.drop[data-open="true"] .drop-menu {
+  opacity: 1; visibility: visible; transform: translateX(0);
+}
+
+/*
+ * Options in a row, divided the way a row of links is divided. The rule belongs *between* two options, never before the first, so it is drawn on everything but the first child rather than on the first itself.
+ */
+.drop-link {
+  display: flex; align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans); font-size: 0.95rem; font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none; color: var(--ink-soft);
+  white-space: nowrap;
+}
+.drop-link + .drop-link { border-left: 1px solid var(--line); border-radius: 0; }
+.drop-link:hover, .drop-link:focus-visible {
+  background: var(--accent-soft); color: var(--accent-ink);
+}
+.drop-label { display: block; }
+
+.icon-link {
+  color: var(--ink-faint); display: inline-flex; align-items: center;
+  padding: 0.2rem; border-radius: var(--radius-sm);
+}
+.icon-link:hover { color: var(--ink); background: var(--bg-tint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .drop-menu, .drop-toggle::before { transition: none; }
+}
+
+@media (max-width: 40rem) {
+  /*
+   * No hover on a phone, so the button is the whole mechanism -- it toggles `data-open` -- and the menu is pinned to the display, because a menu as wide as its longest label is as wide as it needs to be.
+   */
+  .drop-menu {
+    position: fixed; left: var(--gutter); right: var(--gutter);
+    top: calc(var(--masthead-h) * 1.18); height: auto;
+    flex-wrap: wrap; justify-content: center; gap: var(--sp-1);
+    padding: var(--sp-2) 0;
+    background: var(--bg); border-top: 1px solid var(--line-soft);
+    transform: translateY(-0.3rem);
+  }
+  .drop-link { white-space: normal; padding: 0.3rem 0.55rem; font-size: 0.9rem; }
+  .drop-link + .drop-link { border-left: 0; }
+  .drop-link + .drop-link::before {
+    content: "|"; margin-right: 0.55rem; color: var(--ink-faint); opacity: 0.6;
+  }
+}
+
+/*
+ * An anchored heading lands on the heading.
+ *
+ * `scroll-margin-top` is what a fragment navigation uses to decide where "the top of the element" is: the browser scrolls so that the element's top edge is `scroll-margin-top` below the top of the viewport. Where it is not set at all, the heading stops under the masthead -- which is sticky -- so the top of the title is hidden behind the bar and the reader lands on the title's *second* line, or on nothing at all if the title is one line. It has to be the height of the bar plus a little air, on every heading a fragment can name, and the same again on the section wrapper for the `:target` case.
+ *
+ * `--masthead-h` is the bar's height and `--scroll-gap` the air above it. The bar is a little taller than `masthead-h` on the layouts whose bar carries larger type, so the gap is derived from both rather than guessed.
+ */
+:where(section, h1, h2, h3, h4, h5, h6, [id]) {
+  scroll-margin-top: calc(var(--masthead-h) * 1.18 + var(--sp-3));
+}
+html { scroll-padding-top: calc(var(--masthead-h) * 1.18 + var(--sp-2)); }
+
+/*
+ * A note about the document, above its content.
+ *
+ * Deliberately quiet: a hairline down the left, the word "Note" in small caps, and the text in the soft ink. A notice that shouts is a notice nobody reads, and this one exists to be read by someone who did not expect to need it.
+ */
+.doc-notice {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  max-width: var(--measure);
+  margin: 0 auto var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: 2px solid var(--accent-2);
+  background: var(--bg-tint);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--sans);
+  font-size: 0.88em;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.doc-notice-label {
+  display: block;
+  font-size: 0.72em; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 0.3rem;
+}
+.doc-notice p { margin: 0; }
+.doc-notice p + p { margin-top: 0.5rem; }
+
+/*
+ * The notice, when there is one, takes the hero's row and pushes it down.
+ *
+ * These three rules used to be unconditional, which cost the landing page a whole grid row. The notice is `grid-row: 1` and the hero `grid-row: 2`, and on a page with no notice at all -- which is the landing page -- row 1 is empty. An empty grid row is zero high, but the grid's `gap` still applies on both sides of it, so the hero was pushed down 80px by nothing: 32px of shell padding and 48px of gap under an absent notice.
+ *
+ * So the rows are assigned only when the notice is actually there. `:has()` on the parent rather than a class on the child, because a class would mean the renderer has to know which layout it is emitting for -- and the row belongs to the grid, not to the thing sitting in it.
+ */
+.shell:has(> .doc-notice) > .hero { grid-row: 2; }
+.shell:has(> .doc-notice) > .toc-rail,
+.shell:has(> .doc-notice) > .toc-sheet,
+.shell:has(> .doc-notice) > .main { grid-row: 3; }
+.shell:has(> .doc-notice) > .site-footer { grid-row: 4; }
+
+/*
+ * And named outright on a page with no notice, which is this one -- but only on the wide layout, because the row it names is the wide layout's.
+ *
+ * The rules above only fire when there is a notice, so without it the footer is left to auto-placement, and auto-placement is not a plan when the row above is sized by a contents rail: the rail sets the height of its row, and a footer not told which row it is in can be laid out level with it, with a long contents drawn straight through it.
+ *
+ * Naming it in the narrow layout as well is the mistake this comment is here to record. `grid-row: 3` is the footer's row when the rail and the article share row two, which is the wide layout. The narrow layout is one column: hero in row one, contents sheet in row two, article in row three -- so naming the footer row three there put it in the same row as the article and drew the two on top of each other. A row number is only true of the layout that has that many rows in that order, so the rule belongs inside the query that has them.
+ */
+@media (min-width: 62rem) {
+  .shell > .site-footer { grid-column: 1 / -1; grid-row: 3; }
+}
+
+/*
+ * ---- the code block: a bar and a body
+ *
+ * The bar is one box across the top and the code is the second, with the copy control in the bar. A rounded pill in the corner was the third attempt and it is gone: it sat on top of the code rather than beside it, and a circle is a shape for a target, not for a label you read.
+ *
+ * The bar is also where the block says what it is, which is why it exists even when the source named no language -- `text` rather than nothing, so the bar is never half-built.
+ */
+.doc .code-block figcaption.code-bar {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4);
+  background: color-mix(in srgb, var(--accent-soft) 62%, var(--bg-tint));
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.code-lang { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.copy {
+  flex: 0 0 auto;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
+  line-height: 1; letter-spacing: 0.01em; text-transform: none;
+  color: var(--ink-soft);
+  background: var(--bg-raised);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  border-radius: var(--radius-sm);
+  padding: 0.42em 0.8em;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.copy:hover {
+  color: var(--accent-ink);
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+  background: var(--accent-soft);
+}
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* What it says, in the colour that says it. */
+.copy[data-state="ok"] {
+  color: #fff; background: var(--emph-green); border-color: transparent;
+}
+.copy[data-state="bad"] {
+  color: #fff; background: var(--emph-red); border-color: transparent;
+}
+
+/*
+ * ---- the colour, used
+ *
+ * A palette that ships eleven colour tokens and spends three of them is not a palette, it is a text colour with two spares. Everything on this page was set in `--ink`, `--ink-soft` and `--ink-faint`, with `--accent` on the section numbers and nowhere else, so the page read as one long grey paragraph list with a blue number every few screens.
+ *
+ * The rule throughout: a *structure* takes the neutral, a *thing* takes the accent. Section numbers, the label over the examples, a figure's plate, the caption bar of a terminal, the rule that closes the hero -- these are the parts a reader navigates by. Body prose stays ink, because prose is the one thing on a page that must not compete with anything.
+ */
+
+/*
+ * The rule closing the first screen is a hairline, like every other rule on the page. It was a gradient from the accent at both ends; two coloured ends on one line is a flourish, and the flourish was the only thing marking the boundary.
+ */
+.hero { border-bottom: 1px solid var(--line-soft); }
+
+/*
+ * The mark: the lambda is the accent, and it is the only blue at that size on the page. The hero sets it larger than the masthead's copy, so it is worth saying which one it is -- it is `var(--accent)`, the same sapphire the section numbers and the links are, not a second blue that only the logo knows about.
+ */
+.hero .doc-title-mark .wordmark-svg .wordmark-lambda { fill: var(--accent); }
+
+/*
+ * A section's rule is a hairline.
+ *
+ * It went through three forms in a week: a border-image gradient, which is one pixel tall and so drew one pixel of blue fading into grey across a hundred and fifty; a two-pixel bar in two colours, which was legible but was decoration on every heading; and this. A page with a coloured rule under every heading stops looking typeset and starts looking generated, and the accent is for words -- links, the label, the section numbers. A rule is not a word.
+ */
+.doc > section > h2 { border-bottom: 1px solid var(--line-soft); }
+
+/*
+ * The construct table: `tabular` inside a float, which is how the source writes it.
+ *
+ * A reference table is the one thing on this page that is meant to be scanned rather than read, so it is the one thing set in the sans at a size where the left column's `\input` and `\include` are distinguishable at a glance. The first column is held to its own width and the second takes the rest: the names are short and the outcomes are sentences, and letting the two share evenly gave the names more room than they need and wrapped both columns twice a row.
+ *
+ * The rules are horizontal only. A grid of cells with a rule on every side is a spreadsheet, and the table is a list of pairs.
+ */
+.doc .float.table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+.doc .float.table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 0 0 var(--sp-2);
+  border-bottom: 2px solid var(--line);
+  white-space: nowrap;
+}
+.doc .float.table td {
+  padding: var(--sp-2) 0;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line-soft);
+}
+.doc .float.table tbody tr:last-child td { border-bottom: 2px solid var(--line); }
+/*
+ * The construct names, in the mono face and out of the prose colour: they are code and the reader is meant to recognise them as code at a glance, not read them.
+ */
+.doc .float.table td:first-child {
+  /*
+   * 30%, not `width: 1%`.
+   *
+   * `width: 1%` asks the table for the column's minimum content width, which is the width of the longest unbreakable run -- one macro name. So the column came out 150px wide and `\ input, \ include` broke across two lines with the second macro alone on the second, and `equation, align, gather, multline, cases` came out three. A name list that wraps between its own items is much harder to scan down than one that does not, which is the one job this column has. A share of the table gives it enough for the longest item on one line and lets the sentences beside it keep the rest.
+   */
+  width: 30%;
+  padding-right: var(--sp-5);
+  white-space: normal;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.92em;
+}
+.doc .float.table td:first-child code {
+  /*
+   * Stripped back to the mono face and nothing else.
+   *
+   * Inline `code` is a chip: sunken background, hairline, radius, padding. In a table cell that is right -- it marks one name inside a sentence. Down a whole column it is eight stacked chips, which is a list of buttons, and the column's job is to be scannable as a list of names. `color: inherit` so the cell's own colour reaches them and the column reads as one thing.
+   */
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  color: inherit;
+  font-size: 1em;
+}
+.doc .float.table td + td { color: var(--ink-soft); }
+
+/*
+ * The sections are one column. They used not to be.
+ *
+ * "Running it" was a two-column grid: the lead paragraph in a narrow column beside the code block in a wide one, with every later paragraph pushed under the code so it had somewhere to go. It was a reasonable arrangement and it produced two things that read as mistakes. The lead came out as three lines of four words in a column beside an empty half page, and the paragraph explaining what the build writes -- five sentences -- was nineteen lines tall in a column narrower than a code line.
+ *
+ * Both are the same mistake: the section's content was distributed between two columns by a rule that knew nothing about what the content was. So it is one column, in the source's order, at the measure, which is what every other section on the page already does.
+ *
+ * The table is the one thing held below its own measure, because at 62rem and above the article *is* the measure and a paragraph running the full 68rem of the shell is eighty-odd characters to the line.
+ */
+@media (min-width: 62rem) {
+  .doc > section:has(> .float.table) > p {
+    max-width: 46rem;
+    margin-bottom: var(--sp-5);
+  }
+}
+
+/*
+ * The number over a section's title, in the accent.
+ *
+ * This is the one that had been claimed twice and never delivered: `.sec-num` says `color: var(--accent)` and then `.doc > section > h2 .sec-num` says `--ink-faint`, two classes to one, further down. Every section number on the page was grey. The more specific rule is the wrong one, so it is changed rather than the other one escalated.
+ */
+
+/*
+ * A terminal's caption bar, in the accent's wash. The commands in the block below it are in `--tok-*` already; the bar is what makes the box read as a terminal rather than as a slab of grey.
+ */
+.doc .code-block figcaption {
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--bg-tint));
+  color: var(--accent-ink);
+  border-bottom-color: color-mix(in srgb, var(--accent) 20%, var(--line));
+}
+
+/*
+ * Figures sit on a plate rather than straight on the page, so a white drawing has something to be white against in dark mode and a hairline in light.
+ */
+.float img, .inline-img {
+  border-color: color-mix(in srgb, var(--accent) 12%, var(--line-soft));
+}
+
+/*
+ * Links are the accent; the underline thickens rather than changing colour, so "this is a link" is one signal and not two.
+ */
+.doc a.link { color: var(--accent-ink); text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.doc a.link:hover { text-decoration-color: var(--accent); }

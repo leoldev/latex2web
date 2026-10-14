@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en" data-theme="auto" data-motion="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>λtex2web</title>
+  <meta name="description" content="See some examples here">
+  <meta name="generator" content="lambda2web">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='25' x='4' font-size='24' font-family='Georgia,serif' font-style='italic'%3E%CE%BB%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="site/theme-landing.hngc5h.css">
+    <link rel="stylesheet" href="site/vendor/katex/katex.min.css">
+</head>
+<body class="theme-landing palette-slate-slate-dark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="./" title="Home" aria-label="λtex2web home">
+        <svg class="wordmark-svg" viewBox="0 0 132 26" width="132" height="26" role="img" aria-hidden="true" focusable="false">
+          <text class="wordmark-lambda" x="0" y="21" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-style="italic">&lambda;</text>
+          <text class="wordmark-rest" x="14" y="21" font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="-0.3">tex<tspan class="wordmark-dim">2</tspan>web</text>
+        </svg>
+      </a>
+      <nav class="doc-nav" aria-label="Site">
+      <div class="drop">
+          <button type="button" class="doc-link drop-toggle" aria-expanded="false">Examples</button>
+          <div class="drop-menu">
+          <a class="drop-link" href="site/src.html" title="Perelman, the entropy formula for the Ricci flow"><span class="drop-label">Math</span></a>
+          <a class="drop-link" href="site/ms.html" title="Vaswani et al., Attention Is All You Need"><span class="drop-label">CompSci</span></a>
+          <a class="drop-link" href="site/dlc-slides-13-2-attention-mechanisms.html" title="A course on attention, by François Fleuret"><span class="drop-label">Lecture</span></a>
+          </div>
+        </div>
+      <a class="doc-link" href="site/docs.html">Docs</a>
+      <a class="icon-link" href="https://github.com/leoldev/latex2web" title="GitHub" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+    </nav>
+    </div>
+  </header>
+
+  
+
+  <div class="shell">
+    
+    <div class="hero"><header class="doc-header"><h1 class="doc-title doc-title-mark"><svg class="wordmark-svg " viewBox="-37 0 98 26" width="98" height="26" role="img" aria-hidden="true" focusable="false"><text x="12" y="21" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="400"><tspan class="wordmark-lambda" font-size="24" font-style="italic">λ</tspan><tspan class="wordmark-rest" font-size="22" letter-spacing="-0.2">tex<tspan class="wordmark-dim">2</tspan>web</tspan></text></svg></h1><p class="doc-byline"><span class="doc-authors"><span class="author"><span class="author-name">A LaTeX-to-Website tool that converts academic papers, lecture notes and slides to a folder of docs-style static files.</span></span></span></p></header><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>npm install leoldev/latex2web</code></pre></figure><div class="hero-front"><p>See some examples here</p><dl class="descriptions"><dt><a class="link" href="site/ms.html">Attention Is All You Need</a></dt><dd><p>Vaswani <em>et al.</em>, NeurIPS 2017.</p><p>Check out <span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span>tex2web's figure and table derivation capabilities.</p></dd>
+<dt><a class="link" href="site/src.html">The entropy formula for the Ricci flow</a></dt><dd><p>Perelman, 2002.</p><p><span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span>tex2web works on 40+ pages of tensor calculus too, typesetting 57
+    math equations cleanly.</p></dd>
+<dt><a class="link" href="site/dlc-slides-13-2-attention-mechanisms.html">Attention Mechanisms</a></dt><dd><p>François Fleuret's lecture 13.2, from his deep learning course.</p><p>A demo of <span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span>tex2web's capabilities in transcribing thirty lecture slides
+    on attention mechanisms to a website.</p></dd></dl></div></div>
+    
+    <div class="toc-rail"><nav class="toc" aria-label="Contents"><p class="toc-title">Contents</p><ul class="toc-list toc-level-1"><li><a href="#section-how-to-run"><span class="toc-num">1</span>How To Run</a></li><li><a href="#section-what-lambdatex2web-does"><span class="toc-num">2</span>What λtex2web does</a></li><li><a href="#section-what-it-can-t-do"><span class="toc-num">3</span>What it can't do</a></li></ul></nav></div>
+    
+    <details class="toc-sheet">
+      <summary><span class="sheet-name">Contents</span><span class="now" aria-live="polite"></span></summary>
+      <nav class="toc" aria-label="Contents"><p class="toc-title">Contents</p><ul class="toc-list toc-level-1"><li><a href="#section-how-to-run"><span class="toc-num">1</span>How To Run</a></li><li><a href="#section-what-lambdatex2web-does"><span class="toc-num">2</span>What λtex2web does</a></li><li><a href="#section-what-it-can-t-do"><span class="toc-num">3</span>What it can't do</a></li></ul></nav>
+    </details>
+    <main id="main" class="main">
+      <article class="doc"><section class="level-1">
+<h2 id="section-how-to-run"><span class="sec-num">1</span>How To Run<a class="anchor" href="#section-how-to-run" aria-label="Link to this section">#</a></h2>
+<p>Install from GitHub (Node 20+):</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>$ npm install leoldev/latex2web</code></pre></figure><p>Then you can run:</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>$ npx leoldev/latex2web paper.tex -o dist</code></pre></figure><p>If you mean to change the source i.e. for your own config:</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>$ git clone https://github.com/leoldev/latex2web
+$ cd latex2web &amp;&amp; npm install
+$ node src/cli.js paper.tex -o dist</code></pre></figure><p>Then:</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>$ latex2web paper.tex -o dist
+$ latex2web paper.tex -o dist --theme notes
+$ latex2web paper.tex -o dist --config house.json</code></pre></figure><p>If you want to know how this website's code works, <code>dist</code> has a copy of
+<code>index.html</code> and a file per document with a shared css. The figures are
+then in <code>assets</code> and KaTeX in <code>vendor</code>.</p>
+</section><section class="level-1">
+<h2 id="section-what-lambdatex2web-does"><span class="sec-num">2</span>What <span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span>tex2web does<a class="anchor" href="#section-what-lambdatex2web-does" aria-label="Link to this section">#</a></h2>
+<p>Or really, what it can do.</p><figure class="float table"><table><thead><tr><th><strong>In LaTeX:</strong></th><th><strong><span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span>tex2web Out:</strong></th></tr></thead><tbody><tr><td><code>\ input</code>, <code>\ include</code></td><td>all included; including nested, section/equation numbers and label scopes</td></tr><tr><td><code>equation</code>, <code>align</code>, <code>gather</code>, <code>multline</code>,
+  <code>cases</code></td><td>all math is rendered, including references between equations.</td></tr><tr><td><code>figure</code>, <code>table</code>, <code>tabular</code></td><td>rendered and captioned (*image files are copied out of the source tree)</td></tr><tr><td><code>tikzpicture</code></td><td>uses a TeX engine with your preamble's own macros and styles (or shown as
+  source)</td></tr><tr><td><code>lstlisting</code>, <code>verbatim</code>, <code>minted</code></td><td>recognises language syntax and formats code</td></tr><tr><td><code>thebibliography</code>, a <code>.bbl</code>, a <code>.bib</code></td><td>citations numbered and linked (when possible)</td></tr><tr><td><code>\ ref</code>, <code>\ eqref</code>,
+  <code>\ cite</code></td><td>included</td></tr><tr><td><code>\ href</code>, <code>\ url</code>,
+  <code>\ footnote</code></td><td>all transcribed as written</td></tr></tbody></table></figure>
+</section><section class="level-1">
+<h2 id="section-what-it-can-t-do"><span class="sec-num">3</span>What it can't do<a class="anchor" href="#section-what-it-can-t-do" aria-label="Link to this section">#</a></h2>
+<p><span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span>tex2web isn't a TeX engine and doesn't plan on being one. There is
+unfortunately then no typesetting, no package resolution, and no expansions beyond
+<code>\ newcommand</code> and <code>\ def</code> in your own
+preamble. Anything it doesn't recognised will be spit out as text.</p><p>Also:</p><ul class="itemize"><li><p><strong>TikZ needs an engine.</strong> Diagrams are compiled with
+    <code>pdflatex</code> when installed, so a figure looks like the source. With no
+    engine on the machine they appear as source.</p></li>
+<li><p><strong>Vector figures are rasterised.</strong> A PDF inside an <code>img</code>
+    element will show nothing, and is why the Ricci flow page is megabytes large.</p></li></ul><figure class="float" id="figure-1"><img src="site/assets/fig-index-1.png" alt="Figure 1: What tex2web does by itself. You need a TeX engine to
+compile TikZ diagrams.e" loading="lazy" decoding="async"><figcaption>Figure 1: What <span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span>tex2web does by itself. You need a TeX engine to
+compile TikZ diagrams.e</figcaption></figure><p>All three examples featured on this cite went through the same command that built
+this page (though with different configurations), from the original LaTeX files
+off arxiv. Please refer to the
+<a class="link" href="site/docs.html">documentation page</a> for more information.</p>
+</section></article>
+      
+    </main>
+    <!--
+      A sibling of the article, not a part of it: the footer belongs at the page's
+      width, spanning the rail, because it is furniture rather than prose. A
+      colophon -- a note about the document -- stays at the measure instead, which
+      each layout decides for itself.
+    -->
+          <footer class="site-footer">
+        <div class="footer-lead">
+          <a class="footer-mark" href="./" aria-label="λtex2web"><svg class="wordmark-svg footer-mark-svg" viewBox="-37 0 98 26" width="98" height="26" role="img" aria-hidden="true" focusable="false"><text x="12" y="21" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="400"><tspan class="wordmark-lambda" font-size="24" font-style="italic">λ</tspan><tspan class="wordmark-rest" font-size="22" letter-spacing="-0.2">tex<tspan class="wordmark-dim">2</tspan>web</tspan></text></svg></a>
+          <p class="footer-tagline">One-liner that turns LaTeX into a static website.</p>
+        </div>
+        <nav class="footer-cols" aria-label="Footer">
+        <div class="footer-col">
+          <h2 class="footer-head">Pages</h2>
+          <ul class="footer-links">
+            <li><a href="site/docs.html">Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Examples</h2>
+          <ul class="footer-links">
+            <li><a href="site/src.html">Math</a></li>
+            <li><a href="site/ms.html">CompSci</a></li>
+            <li><a href="site/dlc-slides-13-2-attention-mechanisms.html">Lecture</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Source</h2>
+          <ul class="footer-links">
+            <li><a href="https://github.com/leoldev/latex2web">On GitHub</a></li>
+          </ul>
+        </div>
+        </nav>
+        <p class="footer-fine">built with latex2web</p>
+      </footer>
+  </div>
+
+  <script>
+(() => {
+  const root = document.documentElement;
+
+  // The palette is the author's decision, so there is deliberately no toggle in
+  // the chrome. An explicit override still works, through localStorage or a
+  // data-theme attribute on <html>, and is applied before first paint.
+  try {
+    root.dataset.theme = localStorage.getItem('l2w-theme') || 'auto';
+  } catch {}
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // The masthead menus.
+    //
+    // Hover and focus already open them, in CSS, with no script at all. This is
+    // only the third way in: a tap. On a touch screen there is no hover, so the
+    // button toggles the menu itself and takes the focus with it, which means the
+    // next tab lands inside the open menu rather than past it.
+    document.querySelectorAll('.drop').forEach((drop) => {
+      const toggle = drop.querySelector('.drop-toggle');
+      if (!toggle) return;
+      toggle.addEventListener('click', () => {
+        const open = drop.dataset.open === 'true';
+        document.querySelectorAll('.drop[data-open="true"]').forEach((d) => {
+          d.dataset.open = 'false';
+          d.querySelector('.drop-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+        drop.dataset.open = open ? 'false' : 'true';
+        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.drop')) return;
+      document.querySelectorAll('.drop[data-open="true"]').forEach((d) => {
+        d.dataset.open = 'false';
+        d.querySelector('.drop-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('.drop[data-open="true"]').forEach((d) => {
+        d.dataset.open = 'false';
+        d.querySelector('.drop-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.querySelectorAll('.copy').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const code = btn.closest('.code-block')?.querySelector('code');
+        if (!code) return;
+        // The state is a data attribute and nothing else; the words live in the
+        // accessible name, where a reader who cannot see the button wants them.
+        // Writing to textContent instead would destroy the two-squares glyph on
+        // the first click. The picture is the stylesheet's business.
+        btn.dataset.state = 'ok';
+        btn.setAttribute('aria-label', 'Copied');
+        try { await navigator.clipboard.writeText(code.innerText); }
+        catch {
+          btn.dataset.state = 'bad';
+          btn.setAttribute('aria-label', 'Copy failed');
+        }
+        setTimeout(() => {
+          delete btn.dataset.state;
+          btn.setAttribute('aria-label', 'Copy code');
+        }, 1600);
+      });
+    });
+
+    // Highlight the section you are in.
+    //
+    // Not "the heading is on screen": a heading is visible for a moment and then
+    // the reader is a screenful into its prose, with nothing highlighted at all.
+    // What a contents should say is which section you are *in*, so the marker
+    // moves when the next heading passes the reading line and stays put until
+    // then.
+    const links = [...document.querySelectorAll('.toc-rail .toc a[href^="#"]')];
+    const targets = links
+      .map((a) => ({ a, el: document.getElementById(decodeURIComponent(a.hash.slice(1))) }))
+      .filter((t) => t.el);
+    if (targets.length) {
+      const setActive = (id) => {
+        for (const { a } of targets) {
+          const on = a.hash === '#' + id;
+          a.classList.toggle('is-active', on);
+          if (on) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+          const twin = document.querySelector('.toc-sheet .toc a[href="' + a.hash + '"]');
+          if (twin) twin.classList.toggle('is-active', on);
+        }
+      };
+      let current = targets[0].el.id;
+      // On a narrow screen the contents is a sticky strip, and the strip is the
+      // only place the reader is told which section they are in -- the rail that
+      // normally carries that is hidden at that width. So the strip's label is
+      // driven from the same reading line as the rail, not from a tap: it is
+      // navigation the reader did not have to ask for.
+      const now = document.querySelector('.toc-sheet .now');
+      const setNow = (id) => {
+        if (!now) return;
+        const link = targets.find((t) => t.el.id === id)?.a;
+        // The number and the name are two elements, and textContent glues them
+        // together: the strip read "1Using it". The number comes off a copy of
+        // the link rather than being stripped off the string, because a section
+        // called "Part 1" would otherwise lose a 1 that was part of its name.
+        const bare = link ? link.cloneNode(true) : null;
+        if (bare) for (const n of bare.querySelectorAll('.toc-num')) n.remove();
+        const label = bare ? bare.textContent.trim() : '';
+        const num = link ? (link.querySelector('.toc-num')?.textContent.trim() || '') : '';
+        const text = num && label ? num + ' ' + label : (label || num);
+        if (now.textContent === text) return;
+        now.textContent = text;
+        const sheet = now.closest('.toc-sheet');
+        if (sheet) {
+          sheet.setAttribute('aria-label',
+            text ? 'Contents — now reading ' + text : 'Contents');
+        }
+      };
+      const update = () => {
+        // The reading line: a little above the top of the viewport. Measured
+        // from the viewport rather than from the document so it does not depend
+        // on which ancestor happens to be the offset parent.
+        const line = innerHeight * 0.28;
+        let found = null;
+        for (const { el } of targets) {
+          if (el.getBoundingClientRect().top <= line) found = el.id;
+          else break;
+        }
+        // Above the first heading there is the title and the abstract: the
+        // first section is what a reader is about to read, not the last.
+        if (found === null) found = targets[0].el.id;
+        if (found !== current) current = found;
+        setActive(current);
+        setNow(current);
+      };
+      let queued = false;
+      const onScroll = () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => { queued = false; update(); });
+      };
+      addEventListener('scroll', onScroll, { passive: true });
+      addEventListener('resize', onScroll, { passive: true });
+      // once now, and again once the document has settled: at DOMContentLoaded
+      // the headings have no positions yet, which briefly highlighted the last
+      // section instead of the first
+      update();
+      requestAnimationFrame(update);
+      addEventListener('load', update, { once: true });
+    }
+  });
+})();
+</script>
+<script>
+(() => {
+  const cue = document.querySelector('[data-hide-past]');
+  if (!cue) return;
+  const mark = () => {
+    // the hero's own bottom edge, so the cue leaves when the hero does
+    const hero = document.querySelector('.doc-header');
+    const past = hero ? hero.getBoundingClientRect().bottom < 0 : scrollY > 80;
+    cue.hidden = past;
+  };
+  let queued = false;
+  addEventListener('scroll', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; mark(); });
+  }, { passive: true });
+  addEventListener('resize', mark, { passive: true });
+  mark();
+})();
+</script>
+<script>
+(() => {
+  // The ladder, and why it has a floor and a second, lower one.
+  //
+  // The first floor is 0.78: below that the subscripts stop being legible and a
+  // legible equation the reader scrolls beats an illegible one they can see.
+  // The second is 0.66, and it applies only to the equations that are still over
+  // at the first -- the ones with no choice. An entropy formula that runs to
+  // eleven integrals is either small or unreachable, and small is the answer
+  // that lets the reader see that there is a second line of it at all.
+  const STEPS = [1, 0.96, 0.92, 0.88, 0.85, 0.82, 0.8, 0.78, 0.75, 0.72, 0.69, 0.66];
+
+  // The box that scrolls is the one that is measured: '.math-block' and
+  // '.equation' carry the overflow, and the KaTeX display inside them is only
+  // as wide as its container is wide -- so measuring the display measured the
+  // scroll container against itself and found everything fitting.
+  const fits = (box) => box.scrollWidth <= box.clientWidth + 1;
+
+  const fitOne = (box) => {
+    box.style.setProperty('--eq-fit', '');
+    box.classList.remove('eq-over');
+    if (fits(box)) return;
+    for (const step of STEPS.slice(1)) {
+      box.style.setProperty('--eq-fit', String(step));
+      if (fits(box)) break;
+    }
+    // Still over at the floor: it gets the margin to reach into, and whatever is
+    // left of it scrolls. The margin is capped at the gap between the column and
+    // the rail, for the same reason the figures are: past the rail is the
+    // contents, and nothing may reach over the contents.
+    box.classList.toggle('eq-over', !fits(box));
+  };
+
+  const all = () => document.querySelectorAll('.math-block, .equation');
+  const pass = () => all().forEach(fitOne);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(pass));
+  } else {
+    requestAnimationFrame(pass);
+  }
+
+  // KaTeX lays out after its own fonts land, and a webfont swapping in changes
+  // the width of every equation on the page.
+  if (document.fonts?.ready) document.fonts.ready.then(() => requestAnimationFrame(pass));
+
+  let queued = false;
+  addEventListener('resize', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; pass(); });
+  });
+})();
+</script>
+
+</body>
+</html>

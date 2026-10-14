@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{tikz}
+
+\title{On the Convergence of Iterated Refinement}
+\author{A.\ Author \and B.\ Author}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We establish a convergence bound for iterated refinement under a relaxed
+smoothing condition. The bound improves on \cite{klass} by a factor of
+$\sqrt{n/\log n}$ in the dense case, and we give a matching lower bound
+in \S\ref{sec:lower}. All results are constructive.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+Consider the linear system $Ax = b$ with $A \in \mathbb{R}^{n \times n}$.
+The classical bound of \cite{klass} reads
+\begin{equation}\label{eq:main}
+  \lVert e^{(k)} \rVert \leq C \left( \frac{\rho}{1 - \rho} \right)^{k}
+  \lVert e^{(0)} \rVert, \qquad \rho = \lVert I - M^{-1}A \rVert .
+\end{equation}
+Our contribution is a sharper analysis of the regime $\rho \to 1$, where
+the factor in \eqref{eq:main} becomes vacuous.
+
+\subsection{Contributions}\label{sec:contrib}
+
+\begin{itemize}
+  \item A new contraction estimate under a \emph{relaxed} smoothing
+    condition, stated in \S\ref{sec:main}.
+  \item A lower bound showing the estimate is tight up to logarithms
+    (\S\ref{sec:lower}).
+  \item An implementation note: the recurrence is stable in
+    \textsc{double} precision for $n \lesssim 10^{6}$.
+\end{itemize}
+
+\subsection{Related work}
+
+Earlier analyses assumed a fixed smoothing parameter $\omega$; see
+\citet{klass} for the original argument and \cite{other,more} for a
+survey. The distinction matters because adaptive $\omega$ --- chosen per
+iteration --- invalidates the telescoping step in their proof.
+
+\section{Main result}\label{sec:main}
+
+\begin{theorem}[Convergence]\label{thm:conv}
+Let $A$ be symmetric positive definite and let $M^{-1}$ be any positive
+definite approximation. Then the iterates $x^{(k)}$ defined by
+\begin{align}
+  r^{(k)}    &= b - Ax^{(k)} \\
+  x^{(k+1)}  &= x^{(k)} + M^{-1} r^{(k)} \label{eq:update}
+\end{align}
+converge, and \eqref{eq:update} is the optimal stationary iteration.
+\end{theorem}
+
+\begin{proof}
+By the standard energy argument,
+\begin{equation}\label{eq:energy}
+  \lVert x^{(k+1)} - x^\star \rVert_A^2
+  = \lVert x^{(k)} - x^\star \rVert_A^2 - \omega \lVert r^{(k)} \rVert^2 .
+\end{equation}
+Summing over $k$ and applying Cauchy--Schwarz to the tail gives the claim.
+\end{proof}
+
+\begin{remark}
+The condition in Theorem~\ref{thm:conv} is necessary. If $M^{-1}$ has
+an eigenvalue $\mu < \omega / \rho(A)$, the iteration cycles.
+\end{remark}
+
+\section{Sharpness}\label{sec:lower}
+
+The following bound matches \eqref{eq:main} up to a logarithmic factor:
+\[
+  \lVert e^{(k)} \rVert \geq
+  c\, \frac{1}{k}\,
+  \rho^{\,k} \lVert e^{(0)} \rVert
+  \qquad \text{for some } c > 0 .
+\]
+Note that $c$ depends only on the spectrum of $A$, not on the choice of
+$M$. Comparing with \S\ref{sec:contrib} closes the gap.
+
+\section{Results in table form}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lcc}
+    \hline
+    Method & Iterations & Constant \\
+    \hline
+    Classical    & $O(\log \varepsilon^{-1})$ & $2.718$ \\
+    Relaxed      & $O(\log \varepsilon^{-1})$ & $1.414$ \\
+    Adaptive     & $O(\log \varepsilon^{-1})$ & $1.000$ \\
+    \hline
+  \end{tabular}
+  \caption{Iteration counts to reach a relative tolerance of
+    $\varepsilon = 10^{-8}$. The constant column is the spectral radius
+    bound from \eqref{eq:main}.}
+  \label{tab:counts}
+\end{table}
+
+Table~\ref{tab:counts} summarises the comparison. The classical bound
+dominates for $n < 10^{4}$; beyond that the relaxed estimate wins.
+
+\section{Numerical recipe}
+
+\begin{lstlisting}[language=Python]
+def refine(A, b, x0, omega=1.0, iters=200, tol=1e-10):
+    x = x0.copy()
+    M_inv = factorize(A)          # sparse Cholesky
+    for _ in range(iters):
+        r = b - A @ x
+        if np.linalg.norm(r) < tol:
+            break
+        x = x + omega * (M_inv @ r)   # see eq:update
+    return x
+\end{lstlisting}
+
+\section{A worked expression}
+
+The characteristic equation is
+\begin{equation}
+  \det(\lambda I - A) = \prod_{i=1}^{n}(\lambda - \lambda_i),
+  \qquad
+  \sum_{i=1}^{n} \frac{1}{\lambda_i^2} < \infty .
+\end{equation}
+Cases arise from the piecewise definition
+\[
+  f(x) = \begin{cases}
+    x^2,      & x \geq 0, \\
+    -x^2,     & x < 0 .
+  \end{cases}
+\]
+Prose resumes here --- em-dashes, ``quoted phrases'', and 50\% of the
+time it is \emph{emphasised}. Special characters: \# \$ \% \& \_ \{ \}.
+
+\subsection{Notation}\label{sec:notation}
+
+\begin{description}
+  \item[$A$] the system matrix;
+  \item[$M$] the preconditioner, with $M \succ 0$;
+  \item[$\rho$] the spectral radius of $I - M^{-1}A$.
+\end{description}
+
+\end{document}

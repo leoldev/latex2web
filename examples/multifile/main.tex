@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{A Document Split Across Files}
+\author{latex2web}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document exists to exercise \verb|\input| and \verb|\include|: the body
+lives in two separate files under \texttt{sections/}, and a label defined in
+one is referenced from the other.
+\end{abstract}
+
+% Body pulled in from elsewhere. Section numbering, the table of contents and
+% cross-references all continue across the file boundary.
+\input{sections/intro}
+\include{sections/method}
+
+\section{Conclusion}\label{sec:conclusion}
+Multi-file builds are a supported input, not an afterthought: see
+\S\ref{sec:method} for the estimate and \S\ref{sec:conclusion} for this section.
+
+\end{document}

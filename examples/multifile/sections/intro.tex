@@ -1,0 +1,17 @@
+\section{Introduction}\label{sec:intro}
+
+Let $f$ be a contraction on a complete metric space with constant
+$\rho \in [0, 1)$. Banach's fixed point theorem asserts that the iterates
+\begin{equation}\label{eq:banach}
+  x^{(k+1)} = f(x^{(k)})
+\end{equation}
+converge to the unique fixed point $x^\star$.
+
+The bound we will use throughout is
+\begin{equation}\label{eq:error}
+  \lVert x^{(k)} - x^\star \rVert \leq
+  \frac{\rho^{k}}{1 - \rho}\, \lVert x^{(0)} - x^\star \rVert .
+\end{equation}
+
+Note that \eqref{eq:banach} is defined in this file, but referenced from the
+next one.

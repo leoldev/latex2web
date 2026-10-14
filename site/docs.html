@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en" data-theme="auto" data-motion="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation</title>
+  <meta name="description" content="To use λtex2web, specify an input and an output.">
+  <meta name="generator" content="lambda2web">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='25' x='4' font-size='24' font-family='Georgia,serif' font-style='italic'%3E%CE%BB%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="theme-notes.1e05bbe.css">
+    <link rel="stylesheet" href="vendor/katex/katex.min.css">
+</head>
+<body class="theme-notes palette-slate-slate-dark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="../" title="Home" aria-label="λtex2web home">
+        <svg class="wordmark-svg" viewBox="0 0 132 26" width="132" height="26" role="img" aria-hidden="true" focusable="false">
+          <text class="wordmark-lambda" x="0" y="21" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-style="italic">&lambda;</text>
+          <text class="wordmark-rest" x="14" y="21" font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="-0.3">tex<tspan class="wordmark-dim">2</tspan>web</text>
+        </svg>
+      </a>
+      <nav class="doc-nav" aria-label="Site">
+      <div class="drop">
+          <button type="button" class="doc-link drop-toggle" aria-expanded="false">Examples</button>
+          <div class="drop-menu">
+          <a class="drop-link" href="src.html" title="Perelman, the entropy formula for the Ricci flow"><span class="drop-label">Math</span></a>
+          <a class="drop-link" href="ms.html" title="Vaswani et al., Attention Is All You Need"><span class="drop-label">CompSci</span></a>
+          <a class="drop-link" href="dlc-slides-13-2-attention-mechanisms.html" title="A course on attention, by François Fleuret"><span class="drop-label">Lecture</span></a>
+          </div>
+        </div>
+      <a class="doc-link" href="../site/docs.html">Docs</a>
+      <a class="icon-link" href="https://github.com/leoldev/latex2web" title="GitHub" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+    </nav>
+    </div>
+  </header>
+
+  
+
+  <div class="shell">
+    
+    
+    
+    <div class="toc-rail"><nav class="toc" aria-label="Contents"><p class="toc-title">Contents</p><ul class="toc-list toc-level-1"><li><a href="#section-the-command"><span class="toc-num">1</span>The command</a><ul class="toc-list toc-level-2"><li><a href="#subsection-options"><span class="toc-num">1.1</span>Options</a></li><li><a href="#subsection-single-file"><span class="toc-num">1.2</span>Single-file</a></li></ul></li><li><a href="#section-maths"><span class="toc-num">2</span>Maths</a><ul class="toc-list toc-level-2"><li><a href="#subsection-what-is-not-rendered"><span class="toc-num">2.1</span>What is not rendered</a></li></ul></li><li><a href="#section-figures"><span class="toc-num">3</span>Figures</a><ul class="toc-list toc-level-2"><li><a href="#subsection-graphics"><span class="toc-num">3.1</span>Graphics</a></li><li><a href="#subsection-tikz"><span class="toc-num">3.2</span>TikZ</a></li></ul></li><li><a href="#section-layouts"><span class="toc-num">4</span>Layouts</a></li><li><a href="#section-decks"><span class="toc-num">5</span>Decks</a><ul class="toc-list toc-level-2"><li><a href="#subsection-references-to-a-sibling-deck"><span class="toc-num">5.1</span>References to a sibling deck</a></li></ul></li><li><a href="#section-palettes-and-tokens"><span class="toc-num">6</span>Palettes and tokens</a><ul class="toc-list toc-level-2"><li><a href="#subsection-what-is-measured-and-what-is-yours"><span class="toc-num">6.1</span>What is measured, and what is yours</a></li></ul></li><li><a href="#section-the-configuration-file"><span class="toc-num">7</span>The configuration file</a><ul class="toc-list toc-level-2"><li><a href="#subsection-the-same-file-as-a-module"><span class="toc-num">7.1</span>The same file as a module</a></li><li><a href="#subsection-keys"><span class="toc-num">7.2</span>Keys</a></li></ul></li><li><a href="#section-what-a-conversion-is-not"><span class="toc-num">8</span>What a conversion is not</a></li><li><a href="#section-getting-a-page-out-of-a-real-paper"><span class="toc-num">9</span>Getting a page out of a real paper</a></li></ul></nav></div>
+    
+    <details class="toc-sheet">
+      <summary><span class="sheet-name">Contents</span><span class="now" aria-live="polite"></span></summary>
+      <nav class="toc" aria-label="Contents"><p class="toc-title">Contents</p><ul class="toc-list toc-level-1"><li><a href="#section-the-command"><span class="toc-num">1</span>The command</a><ul class="toc-list toc-level-2"><li><a href="#subsection-options"><span class="toc-num">1.1</span>Options</a></li><li><a href="#subsection-single-file"><span class="toc-num">1.2</span>Single-file</a></li></ul></li><li><a href="#section-maths"><span class="toc-num">2</span>Maths</a><ul class="toc-list toc-level-2"><li><a href="#subsection-what-is-not-rendered"><span class="toc-num">2.1</span>What is not rendered</a></li></ul></li><li><a href="#section-figures"><span class="toc-num">3</span>Figures</a><ul class="toc-list toc-level-2"><li><a href="#subsection-graphics"><span class="toc-num">3.1</span>Graphics</a></li><li><a href="#subsection-tikz"><span class="toc-num">3.2</span>TikZ</a></li></ul></li><li><a href="#section-layouts"><span class="toc-num">4</span>Layouts</a></li><li><a href="#section-decks"><span class="toc-num">5</span>Decks</a><ul class="toc-list toc-level-2"><li><a href="#subsection-references-to-a-sibling-deck"><span class="toc-num">5.1</span>References to a sibling deck</a></li></ul></li><li><a href="#section-palettes-and-tokens"><span class="toc-num">6</span>Palettes and tokens</a><ul class="toc-list toc-level-2"><li><a href="#subsection-what-is-measured-and-what-is-yours"><span class="toc-num">6.1</span>What is measured, and what is yours</a></li></ul></li><li><a href="#section-the-configuration-file"><span class="toc-num">7</span>The configuration file</a><ul class="toc-list toc-level-2"><li><a href="#subsection-the-same-file-as-a-module"><span class="toc-num">7.1</span>The same file as a module</a></li><li><a href="#subsection-keys"><span class="toc-num">7.2</span>Keys</a></li></ul></li><li><a href="#section-what-a-conversion-is-not"><span class="toc-num">8</span>What a conversion is not</a></li><li><a href="#section-getting-a-page-out-of-a-real-paper"><span class="toc-num">9</span>Getting a page out of a real paper</a></li></ul></nav>
+    </details>
+    <main id="main" class="main">
+      <article class="doc"><header class="doc-header"><h1 class="doc-title">Documentation</h1><p class="doc-byline"><span class="doc-authors"><span class="author"><span class="author-name">by leoldev</span></span></span></p></header><section class="level-1">
+<h2 id="section-the-command"><span class="sec-num">1</span>The command<a class="anchor" href="#section-the-command" aria-label="Link to this section">#</a></h2>
+<p>To use λtex2web, specify an input and an output. For example:</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>latex2web paper.tex site/
+latex2web chapters/ site/                 // directory input
+latex2web paper.tex --theme docs
+latex2web paper.tex site/ my.config.json</code></pre></figure><p>In essence, <code>λtex2web input output config</code>.</p><section class="level-2">
+<h3 id="subsection-options"><span class="sec-num">1.1</span>Options<a class="anchor" href="#subsection-options" aria-label="Link to this section">#</a></h3>
+<figure class="float table"><table><thead><tr><th><code>-t, –theme</code></th><th><code>paper</code>, <code>slides</code></th></tr></thead><tbody><tr><td><code>-p, –palette</code></td><td><code>warm-paper</code>, <code>catppuccin-frappe</code>,
+  <code>catppuccin-mocha</code>, <code>catppuccin-macchiato</code>,
+  <code>catppuccin-latte</code>, <code>warm-paper-dark</code></td></tr><tr><td><code>–tokens</code></td><td>one or more colour tokens, as JSON, on the command line</td></tr><tr><td><code>–css</code></td><td>an extra stylesheet, appended after the layout's own</td></tr><tr><td><code>–template</code></td><td>replace the HTML shell entirely</td></tr><tr><td><code>-F, –single-file</code></td><td>inline the CSS, the maths and the fonts into one file</td></tr><tr><td><code>–figures</code></td><td>compile TikZ with a real engine when one is installed</td></tr><tr><td><code>-I, –include-dir</code></td><td>an extra search path for <code>\ input</code></td></tr><tr><td><code>–base</code></td><td>a URL prefix for links when serving from a subdirectory</td></tr><tr><td><code>-w, –watch</code></td><td>rebuild when a source file changes</td></tr></tbody></table></figure><p>Flag has priority over configuration file, which has priority over the default.</p>
+</section><section class="level-2">
+<h3 id="subsection-single-file"><span class="sec-num">1.2</span>Single-file<a class="anchor" href="#subsection-single-file" aria-label="Link to this section">#</a></h3>
+<p><code>–single-file</code> writes a <code>.html</code> including stylesheet, math
+typesetting and the fonts to one file. Try:</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>latex2web paper.tex paper.html --single-file</code></pre></figure>
+</section>
+</section><section class="level-1">
+<h2 id="section-maths"><span class="sec-num">2</span>Maths<a class="anchor" href="#section-maths" aria-label="Link to this section">#</a></h2>
+<p>Maths is rendered, not imaged. <code>multiline</code>, <code>flalign</code>,
+<code>alignat</code>, <code>gather</code>, <code>equation</code>, <code>align</code>,
+<code>cases</code>, <code>array</code> and <code>pmatrix</code> all typeset:</p><div class="equation numbered" id="eq-2-1"><span class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.0993em;">F</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.2719em;vertical-align:-0.9119em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.4445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:-0.4336em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.109em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9119em;"><span></span></span></span></span></span></span><span class="mopen"><span class="delimsizing size1">(</span></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.2491em;vertical-align:-0.35em;"></span><span class="mord">∣∇</span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing size1">)</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.1076em;">f</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mord">.</span></span></span></span></span></span><span class="eqno">(2.1)</span></div><p>Cross-references resolve, so <a class="link" href="#eq-2-1">(1)</a> works. With
+<code>\numberwithin{equation}{section}</code> in the source, equations number inside
+their section – <span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2.1</span><span class="mclose">)</span></span></span></span></span>, <span class="math-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3.1</span><span class="mclose">)</span></span></span></span></span> – rather than running on for the whole paper.</p><section class="level-2">
+<h3 id="subsection-what-is-not-rendered"><span class="sec-num">2.1</span>What is not rendered<a class="anchor" href="#subsection-what-is-not-rendered" aria-label="Link to this section">#</a></h3>
+<p>An environment the converter does not know is kept as source and labelled, never
+dropped. A figure that will not compile is shown as the code that would have
+produced it, with the reason.</p>
+</section>
+</section><section class="level-1">
+<h2 id="section-figures"><span class="sec-num">3</span>Figures<a class="anchor" href="#section-figures" aria-label="Link to this section">#</a></h2>
+<section class="level-2">
+<h3 id="subsection-graphics"><span class="sec-num">3.1</span>Graphics<a class="anchor" href="#subsection-graphics" aria-label="Link to this section">#</a></h3>
+<p>An extension-less <code>\ includegraphics</code> resolves the way LaTeX
+resolves it. Vector artwork is rasterised at build time, because a PDF inside an
+<code>&lt;img&gt;</code> displays nothing, and <code>trim</code> is honoured while that happens.</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>\includegraphics[width=0.8\textwidth]{figures/pipeline}   </code></pre></figure>
+</section><section class="level-2">
+<h3 id="subsection-tikz"><span class="sec-num">3.2</span>TikZ<a class="anchor" href="#subsection-tikz" aria-label="Link to this section">#</a></h3>
+<p>TikZ is compiled against the source's own preamble, so a figure looks the way it
+was drawn: its macros, its styles and its colour names all resolve.</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>\begin{tikzpicture}[
+  box/.style={draw, rounded corners=3pt, minimum height=1.1cm, align=center},
+  flow/.style={-{Stealth[length=2mm]}, thick}
+]
+  \node[box] (a) { \texttt{paper.tex} };
+  \node[box, right=1.4cm of a] (b) { $\lambda$tex2web };
+  \draw[flow] (a) -- (b);
+\end{tikzpicture}</code></pre></figure><p>A build compiles it if it finds a TeX engine, and says so when it does not. With
+no engine the drawing is shown as the source above, labelled as such.</p>
+</section>
+</section><section class="level-1">
+<h2 id="section-layouts"><span class="sec-num">4</span>Layouts<a class="anchor" href="#section-layouts" aria-label="Link to this section">#</a></h2>
+<p>Five layouts, each usable with any palette.</p><dl class="descriptions"><dt>paper</dt><dd><p>Serif, print-inspired, generous measure, contents rail. For a
+  paper.</p></dd>
+<dt>notes</dt><dd><p>Sans-serif, wide measure, skimmable. For lecture notes.</p></dd>
+<dt>slides</dt><dd><p>Scroll-snap deck. Sections become dividers, <code>beamer</code> frames
+    become slides.</p></dd>
+<dt>docs</dt><dd><p>Sections as cards, no rail. For a documentation page.</p></dd>
+<dt>landing</dt><dd><p>A front page: the name set low, example buttons, a contents
+    rail below the hero.</p></dd></dl>
+</section><section class="level-1">
+<h2 id="section-decks"><span class="sec-num">5</span>Decks<a class="anchor" href="#section-decks" aria-label="Link to this section">#</a></h2>
+<p>A <code>beamer</code> <code>frame</code> becomes a section, numbered the way beamer numbers
+it. Each slide is labelled <code>Slide N of M</code> in document order; a
+<code>[plain]</code> frame is not counted, because an opening card or a closing
+<em>The End</em> carries no number in the published deck either. A
+<code>\ sectiontitleframe</code> is counted, and renders as a real heading.</p><p>Overlays are flattened. There is no presenter on a web page to reveal them.</p><section class="level-2">
+<h3 id="subsection-references-to-a-sibling-deck"><span class="sec-num">5.1</span>References to a sibling deck<a class="anchor" href="#subsection-references-to-a-sibling-deck" aria-label="Link to this section">#</a></h3>
+<p><code>\ dlcref</code> is Fleuret's cross-reference to another lecture in
+the same course. It reads a <code>.dlcref</code> file that the other lecture writes,
+so a deck on its own has nothing to resolve against. Supply the map instead:</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>{ &quot;xrefs&quot;: { &quot;einstein-summations&quot;: &quot;1.5. ``High dimension tensors''&quot; } }</code></pre></figure><p>A key with no entry prints nothing and is reported. Printing the macro's
+argument at the reader is what a broken cross-reference looks like.</p>
+</section>
+</section><section class="level-1">
+<h2 id="section-palettes-and-tokens"><span class="sec-num">6</span>Palettes and tokens<a class="anchor" href="#section-palettes-and-tokens" aria-label="Link to this section">#</a></h2>
+<p>A palette is colour and type; a layout is structure. Six palettes ship, each
+with a light and a dark half, so a page follows the reader's system. There is no
+toggle
+in the chrome.</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>--palette catppuccin-mocha
+--tokens '{&quot;accent&quot;:&quot;#2f5fd0&quot;,&quot;accent-soft&quot;:&quot;#e8effc&quot;}'</code></pre></figure><p>Colour and font tokens come from the palette: <code>bg</code>, <code>bg-raised</code>,
+<code>bg-sunken</code>, <code>bg-tint</code>, <code>ink</code>, <code>ink-soft</code>,
+<code>ink-faint</code>, <code>line</code>, <code>line-soft</code>, <code>accent</code>,
+<code>accent-soft</code>, <code>accent-ink</code>, <code>accent-2</code>, <code>mark</code>,
+<code>shadow</code>, the six <code>emph-*</code> colours, the <code>tok-*</code> colours used
+by code, and the <code>serif</code>, <code>sans</code> and <code>mono</code> stacks.</p><p>Structural tokens come from the layout: <code>measure</code>, <code>rail</code>,
+<code>gutter</code>, <code>masthead-h</code> and the type scale.</p><section class="level-2">
+<h3 id="subsection-what-is-measured-and-what-is-yours"><span class="sec-num">6.1</span>What is measured, and what is yours<a class="anchor" href="#subsection-what-is-measured-and-what-is-yours" aria-label="Link to this section">#</a></h3>
+<p>A palette states a ground and a character. The ramps around it are derived and
+then
+checked, not chosen by eye: text levels are ordered by contrast against the
+ground, a card is lighter than the page in both modes, and every level clears
+WCAG AA on
+every surface it lands on. That is why a dark flavour's <code>bg-raised</code> is
+not
+its own <code>mantle</code> – Catppuccin's mantle is darker than its base, which
+made a card a hole in the page.</p><p>A token you pass yourself is never second-guessed. The repair runs over the
+palette first, so <code>{&quot;accent&quot;: &quot;#e11&quot;}</code> is the red you asked for.</p>
+</section>
+</section><section class="level-1">
+<h2 id="section-the-configuration-file"><span class="sec-num">7</span>The configuration file<a class="anchor" href="#section-the-configuration-file" aria-label="Link to this section">#</a></h2>
+<p>JSON, or a module exporting an object or a function. Found by walking up from
+the working directory; <code>extends</code> names a preset path or package.</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>{
+  &quot;theme&quot;: &quot;docs&quot;,
+  &quot;palette&quot;: { &quot;light&quot;: &quot;warm-paper&quot;, &quot;dark&quot;: &quot;catppuccin-mocha&quot; },
+  &quot;tokens&quot;: { &quot;accent&quot;: &quot;#2f5fd0&quot;, &quot;measure&quot;: &quot;46rem&quot; },
+  &quot;motion&quot;: &quot;on&quot;,
+  &quot;notice&quot;: &quot;A note about this document, shown above it.&quot;,
+  &quot;hero&quot;: &quot;front-matter&quot;,
+  &quot;wordmarkHero&quot;: true,
+  &quot;home&quot;: &quot;./&quot;,
+  &quot;github&quot;: &quot;owner/repo&quot;,
+  &quot;nav&quot;: [
+    { &quot;label&quot;: &quot;Examples&quot;, &quot;items&quot;: [
+      { &quot;label&quot;: &quot;Math&quot;, &quot;href&quot;: &quot;site/src.html&quot; }
+    ]},
+    { &quot;label&quot;: &quot;Docs&quot;, &quot;href&quot;: &quot;./&quot; }
+  ],
+  &quot;footer&quot;: true,
+  &quot;footerTagline&quot;: &quot;One command, one folder, no server.&quot;,
+  &quot;figures&quot;: { &quot;delegate&quot;: true },
+  &quot;toc&quot;: true,
+  &quot;assets&quot;: { &quot;dir&quot;: &quot;assets&quot; }
+}</code></pre></figure><section class="level-2">
+<h3 id="subsection-the-same-file-as-a-module"><span class="sec-num">7.1</span>The same file as a module<a class="anchor" href="#subsection-the-same-file-as-a-module" aria-label="Link to this section">#</a></h3>
+<p>A module may export a function, which is how a build generates its configuration
+instead of repeating it. A preset is a module too, and a file that extends one
+is handed the preset's result to change.</p><figure class="code-block"><figcaption class="code-bar"><span class="code-lang">text</span><button class="copy" type="button" aria-label="Copy code" title="Copy"><svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9.2" y="9.2" width="11.6" height="11.6" rx="2.1"/><path d="M14.8 5.4V4.6a2 2 0 0 0-2-2H4.6a2 2 0 0 0-2 2v8.2a2 2 0 0 0 2 2h.8"/></svg><svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 6.6 9.6 17.5 4 11.9"/></svg></button></figcaption><pre><code>// latex2web.config.mjs
+export default {
+  theme: 'docs',
+  palette: { light: 'warm-paper', dark: 'catppuccin-mocha' },
+  extends: './docs.preset.mjs',
+  tokens: { measure: '46rem', accent: '#2f5fd0' },
+  motion: 'on',
+  github: 'owner/repo',
+};</code></pre></figure>
+</section><section class="level-2">
+<h3 id="subsection-keys"><span class="sec-num">7.2</span>Keys<a class="anchor" href="#subsection-keys" aria-label="Link to this section">#</a></h3>
+<dl class="descriptions"><dt>theme</dt><dd><p>the layout name.</p></dd>
+<dt>palette</dt><dd><p>a name, or <code>{light, dark}</code> for a pair.</p></dd>
+<dt>tokens</dt><dd><p>colour, type and metric overrides, merged over the layout's.</p></dd>
+<dt>css</dt><dd><p>extra stylesheets, appended after the layout's own – the supported
+    way to restyle without forking a theme.</p></dd>
+<dt>template</dt><dd><p>a path replacing the HTML shell. The shell is a template, so
+    the whole page is replaceable rather than only decorated.</p></dd>
+<dt>nav</dt><dd><p>the masthead menu. An entry with <code>items</code> is a dropdown. Left
+    unset, a multi-page build links its own documents instead.</p></dd>
+<dt>footer</dt><dd><p><code>false</code> for a line of small print instead of the site
+    footer, which is what a lone converted document wants.</p></dd>
+<dt>hero</dt><dd><p><code>&quot;front-matter&quot;</code> lifts the title, the author and the first
+paragraph into the hero, so the contents starts level with the first section.</p></dd>
+<dt>wordmarkHero</dt><dd><p>draw the mark as the title instead of setting the title
+    as a heading.</p></dd>
+<dt>notice</dt><dd><p>an editorial note above the content, for when a conversion had
+    to change something.</p></dd>
+<dt>xrefs</dt><dd><p>where <code>\ dlcref</code> resolves to, as a map from key
+    to the text to print. See <em>References to a sibling deck</em>.</p></dd>
+<dt>motion</dt><dd><p><code>&quot;on&quot;</code> or <code>&quot;off&quot;</code>. <code>&quot;auto&quot;</code> is not an alias
+    for <code>&quot;on&quot;</code>.</p></dd>
+<dt>figures</dt><dd><p><code>{delegate: false}</code> stops the build shelling out to a TeX
+    engine, for a build that must not reach the network or that wants the same
+    bytes on a machine with TeX and one without. On by default.</p></dd>
+<dt>head</dt><dd><p>,</p></dd>
+<dt>scripts</dt><dd><p>extra markup, or functions returning it.</p></dd></dl><p>An unknown key is reported rather than ignored, because a typo is silent
+otherwise and the symptom is a setting that does not apply.</p>
+</section>
+</section><section class="level-1">
+<h2 id="section-what-a-conversion-is-not"><span class="sec-num">8</span>What a conversion is not<a class="anchor" href="#section-what-a-conversion-is-not" aria-label="Link to this section">#</a></h2>
+<p>The source that was written is the source that is typeset. Nothing is rasterised
+from a PDF of the document, because a PDF has already thrown away the structure
+that makes a page worth reading: the headings are not headings, the references
+are not links, the equations are pictures of equations.</p><p>So a converted paper is a conversion, not a transcription, and no claim is made
+over the work itself. Where something had to change to get a page out at all,
+<code>notice</code> is how that gets said on the page.</p>
+</section><section class="level-1">
+<h2 id="section-getting-a-page-out-of-a-real-paper"><span class="sec-num">9</span>Getting a page out of a real paper<a class="anchor" href="#section-getting-a-page-out-of-a-real-paper" aria-label="Link to this section">#</a></h2>
+<ol class="itemize"><li><p>Give it the source: <code>latex2web paper.tex site/</code>, then open
+    <code>site/paper.html</code>.</p></li>
+<li><p>Pick a layout for what it is. A paper is <code>paper</code>, a deck is
+    <code>slides</code>, notes are <code>notes</code>.</p></li>
+<li><p>A figure that comes out as source means no TeX engine was found to
+    compile it. Installing one is all it takes.</p></li>
+<li><p>If a section came out wrong, check whether the source stars it.
+    <code>\ section*</code> is unnumbered, and numbering it shifts every
+    equation after it.</p></li>
+<li><p>If something is missing, say so on the page with <code>notice</code> rather
+    than leaving the reader to find the gap.</p></li></ol>
+</section></article>
+      
+    </main>
+    <!--
+      A sibling of the article, not a part of it: the footer belongs at the page's
+      width, spanning the rail, because it is furniture rather than prose. A
+      colophon -- a note about the document -- stays at the measure instead, which
+      each layout decides for itself.
+    -->
+          <footer class="site-footer">
+        <div class="footer-lead">
+          <a class="footer-mark" href="../" aria-label="λtex2web"><svg class="wordmark-svg footer-mark-svg" viewBox="-37 0 98 26" width="98" height="26" role="img" aria-hidden="true" focusable="false"><text x="12" y="21" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="400"><tspan class="wordmark-lambda" font-size="24" font-style="italic">λ</tspan><tspan class="wordmark-rest" font-size="22" letter-spacing="-0.2">tex<tspan class="wordmark-dim">2</tspan>web</tspan></text></svg></a>
+          <p class="footer-tagline">One command turns a LaTeX source into a folder of static files. Nothing to install, nothing to serve, nothing to run in a browser.</p>
+        </div>
+        <nav class="footer-cols" aria-label="Footer">
+        <div class="footer-col">
+          <h2 class="footer-head">Pages</h2>
+          <ul class="footer-links">
+            <li><a href="../site/docs.html">Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Examples</h2>
+          <ul class="footer-links">
+            <li><a href="src.html">Math</a></li>
+            <li><a href="ms.html">CompSci</a></li>
+            <li><a href="dlc-slides-13-2-attention-mechanisms.html">Lecture</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Source</h2>
+          <ul class="footer-links">
+            <li><a href="https://github.com/leoldev/latex2web">On GitHub</a></li>
+          </ul>
+        </div>
+        </nav>
+        <p class="footer-fine">built with latex2web</p>
+      </footer>
+  </div>
+
+  <script>
+(() => {
+  const root = document.documentElement;
+
+  // The palette is the author's decision, so there is deliberately no toggle in
+  // the chrome. An explicit override still works, through localStorage or a
+  // data-theme attribute on <html>, and is applied before first paint.
+  try {
+    root.dataset.theme = localStorage.getItem('l2w-theme') || 'auto';
+  } catch {}
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // The masthead menus.
+    //
+    // Hover and focus already open them, in CSS, with no script at all. This is
+    // only the third way in: a tap. On a touch screen there is no hover, so the
+    // button toggles the menu itself and takes the focus with it, which means the
+    // next tab lands inside the open menu rather than past it.
+    document.querySelectorAll('.drop').forEach((drop) => {
+      const toggle = drop.querySelector('.drop-toggle');
+      if (!toggle) return;
+      toggle.addEventListener('click', () => {
+        const open = drop.dataset.open === 'true';
+        document.querySelectorAll('.drop[data-open="true"]').forEach((d) => {
+          d.dataset.open = 'false';
+          d.querySelector('.drop-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+        drop.dataset.open = open ? 'false' : 'true';
+        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.drop')) return;
+      document.querySelectorAll('.drop[data-open="true"]').forEach((d) => {
+        d.dataset.open = 'false';
+        d.querySelector('.drop-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('.drop[data-open="true"]').forEach((d) => {
+        d.dataset.open = 'false';
+        d.querySelector('.drop-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.querySelectorAll('.copy').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const code = btn.closest('.code-block')?.querySelector('code');
+        if (!code) return;
+        // The state is a data attribute and nothing else; the words live in the
+        // accessible name, where a reader who cannot see the button wants them.
+        // Writing to textContent instead would destroy the two-squares glyph on
+        // the first click. The picture is the stylesheet's business.
+        btn.dataset.state = 'ok';
+        btn.setAttribute('aria-label', 'Copied');
+        try { await navigator.clipboard.writeText(code.innerText); }
+        catch {
+          btn.dataset.state = 'bad';
+          btn.setAttribute('aria-label', 'Copy failed');
+        }
+        setTimeout(() => {
+          delete btn.dataset.state;
+          btn.setAttribute('aria-label', 'Copy code');
+        }, 1600);
+      });
+    });
+
+    // Highlight the section you are in.
+    //
+    // Not "the heading is on screen": a heading is visible for a moment and then
+    // the reader is a screenful into its prose, with nothing highlighted at all.
+    // What a contents should say is which section you are *in*, so the marker
+    // moves when the next heading passes the reading line and stays put until
+    // then.
+    const links = [...document.querySelectorAll('.toc-rail .toc a[href^="#"]')];
+    const targets = links
+      .map((a) => ({ a, el: document.getElementById(decodeURIComponent(a.hash.slice(1))) }))
+      .filter((t) => t.el);
+    if (targets.length) {
+      const setActive = (id) => {
+        for (const { a } of targets) {
+          const on = a.hash === '#' + id;
+          a.classList.toggle('is-active', on);
+          if (on) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+          const twin = document.querySelector('.toc-sheet .toc a[href="' + a.hash + '"]');
+          if (twin) twin.classList.toggle('is-active', on);
+        }
+      };
+      let current = targets[0].el.id;
+      // On a narrow screen the contents is a sticky strip, and the strip is the
+      // only place the reader is told which section they are in -- the rail that
+      // normally carries that is hidden at that width. So the strip's label is
+      // driven from the same reading line as the rail, not from a tap: it is
+      // navigation the reader did not have to ask for.
+      const now = document.querySelector('.toc-sheet .now');
+      const setNow = (id) => {
+        if (!now) return;
+        const link = targets.find((t) => t.el.id === id)?.a;
+        // The number and the name are two elements, and textContent glues them
+        // together: the strip read "1Using it". The number comes off a copy of
+        // the link rather than being stripped off the string, because a section
+        // called "Part 1" would otherwise lose a 1 that was part of its name.
+        const bare = link ? link.cloneNode(true) : null;
+        if (bare) for (const n of bare.querySelectorAll('.toc-num')) n.remove();
+        const label = bare ? bare.textContent.trim() : '';
+        const num = link ? (link.querySelector('.toc-num')?.textContent.trim() || '') : '';
+        const text = num && label ? num + ' ' + label : (label || num);
+        if (now.textContent === text) return;
+        now.textContent = text;
+        const sheet = now.closest('.toc-sheet');
+        if (sheet) {
+          sheet.setAttribute('aria-label',
+            text ? 'Contents — now reading ' + text : 'Contents');
+        }
+      };
+      const update = () => {
+        // The reading line: a little above the top of the viewport. Measured
+        // from the viewport rather than from the document so it does not depend
+        // on which ancestor happens to be the offset parent.
+        const line = innerHeight * 0.28;
+        let found = null;
+        for (const { el } of targets) {
+          if (el.getBoundingClientRect().top <= line) found = el.id;
+          else break;
+        }
+        // Above the first heading there is the title and the abstract: the
+        // first section is what a reader is about to read, not the last.
+        if (found === null) found = targets[0].el.id;
+        if (found !== current) current = found;
+        setActive(current);
+        setNow(current);
+      };
+      let queued = false;
+      const onScroll = () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => { queued = false; update(); });
+      };
+      addEventListener('scroll', onScroll, { passive: true });
+      addEventListener('resize', onScroll, { passive: true });
+      // once now, and again once the document has settled: at DOMContentLoaded
+      // the headings have no positions yet, which briefly highlighted the last
+      // section instead of the first
+      update();
+      requestAnimationFrame(update);
+      addEventListener('load', update, { once: true });
+    }
+  });
+})();
+</script>
+<script>
+(() => {
+  const cue = document.querySelector('[data-hide-past]');
+  if (!cue) return;
+  const mark = () => {
+    // the hero's own bottom edge, so the cue leaves when the hero does
+    const hero = document.querySelector('.doc-header');
+    const past = hero ? hero.getBoundingClientRect().bottom < 0 : scrollY > 80;
+    cue.hidden = past;
+  };
+  let queued = false;
+  addEventListener('scroll', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; mark(); });
+  }, { passive: true });
+  addEventListener('resize', mark, { passive: true });
+  mark();
+})();
+</script>
+<script>
+(() => {
+  // The ladder, and why it has a floor and a second, lower one.
+  //
+  // The first floor is 0.78: below that the subscripts stop being legible and a
+  // legible equation the reader scrolls beats an illegible one they can see.
+  // The second is 0.66, and it applies only to the equations that are still over
+  // at the first -- the ones with no choice. An entropy formula that runs to
+  // eleven integrals is either small or unreachable, and small is the answer
+  // that lets the reader see that there is a second line of it at all.
+  const STEPS = [1, 0.96, 0.92, 0.88, 0.85, 0.82, 0.8, 0.78, 0.75, 0.72, 0.69, 0.66];
+
+  // The box that scrolls is the one that is measured: '.math-block' and
+  // '.equation' carry the overflow, and the KaTeX display inside them is only
+  // as wide as its container is wide -- so measuring the display measured the
+  // scroll container against itself and found everything fitting.
+  const fits = (box) => box.scrollWidth <= box.clientWidth + 1;
+
+  const fitOne = (box) => {
+    box.style.setProperty('--eq-fit', '');
+    box.classList.remove('eq-over');
+    if (fits(box)) return;
+    for (const step of STEPS.slice(1)) {
+      box.style.setProperty('--eq-fit', String(step));
+      if (fits(box)) break;
+    }
+    // Still over at the floor: it gets the margin to reach into, and whatever is
+    // left of it scrolls. The margin is capped at the gap between the column and
+    // the rail, for the same reason the figures are: past the rail is the
+    // contents, and nothing may reach over the contents.
+    box.classList.toggle('eq-over', !fits(box));
+  };
+
+  const all = () => document.querySelectorAll('.math-block, .equation');
+  const pass = () => all().forEach(fitOne);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(pass));
+  } else {
+    requestAnimationFrame(pass);
+  }
+
+  // KaTeX lays out after its own fonts land, and a webfont swapping in changes
+  // the width of every equation on the page.
+  if (document.fonts?.ready) document.fonts.ready.then(() => requestAnimationFrame(pass));
+
+  let queued = false;
+  addEventListener('resize', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; pass(); });
+  });
+})();
+</script>
+
+</body>
+</html>

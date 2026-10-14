@@ -1,0 +1,37 @@
+{
+  "name": "latex2web",
+  "version": "0.2.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leoldev/latex2web.git"
+  },
+  "homepage": "https://leoldev.github.io/latex2web",
+  "bugs": {
+    "url": "https://github.com/leoldev/latex2web/issues"
+  },
+  "description": "latex2web: turn LaTeX sources into a polished, self-contained static website.",
+  "type": "module",
+  "bin": {
+    "latex2web": "./src/cli.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "templates",
+    "themes/paper.css",
+    "themes/notes.css"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node src/cli.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "katex": "^0.19.0"
+  }
+}

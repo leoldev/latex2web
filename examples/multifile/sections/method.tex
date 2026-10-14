@@ -1,0 +1,23 @@
+\section{Method}\label{sec:method}
+
+We iterate \eqref{eq:banach} until the estimate \eqref{eq:error} falls below a
+tolerance $\varepsilon$, which requires
+\begin{equation}
+  k \geq \frac{\log\bigl(\varepsilon (1-\rho) / \lVert x^{(0)} - x^\star \rVert\bigr)}{\log \rho}.
+\end{equation}
+
+Because the label in \eqref{eq:error} was defined in a different file, this
+paragraph is only correct if the label scope is shared across the split.
+
+\begin{itemize}
+  \item Labels from included files resolve here.
+  \item Section numbering continues rather than restarting.
+  \item The table of contents spans every file.
+\end{itemize}
+
+\begin{lstlisting}[language=Python]
+while norm(x - x_star) > epsilon:
+    x = f(x)              # eq:banach
+    k += 1
+print(f"converged in {k} steps")
+\end{lstlisting}

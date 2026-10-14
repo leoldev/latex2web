@@ -1,0 +1,1958 @@
+/* ============================================================================
+   latex2web — "paper" theme
+   Warm, print-inspired, serif. Sticky contents rail on wide screens, KaTeX
+   rendered at build time so no JavaScript is required to read the page.
+   ========================================================================= */
+
+:root {
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+    "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "JetBrains Mono",
+    monospace;
+
+  --step--1: clamp(0.80rem, 0.78rem + 0.10vw, 0.86rem);
+  --step-0:  clamp(1.02rem, 0.99rem + 0.15vw, 1.11rem);
+  --step-1:  clamp(1.24rem, 1.18rem + 0.30vw, 1.42rem);
+  --step-2:  clamp(1.50rem, 1.40rem + 0.50vw, 1.85rem);
+  --step-3:  clamp(1.85rem, 1.65rem + 1.00vw, 2.55rem);
+  --step-4:  clamp(2.30rem, 1.95rem + 1.75vw, 3.55rem);
+
+  /*
+   * A fixed measure clumps the text into the middle of a wide screen. Widening it at a
+   * breakpoint is worse: every line rewraps the instant the window crosses it, which
+   * reads as the page lagging behind the cursor. One clamp grows the column
+   * continuously instead, so there is no step for anything to jump at, and the column
+   * stops at the width a line of text can actually be read at. Prose is not what should
+   * absorb the rest of a wide monitor -- figures, tables and code are, and they do,
+   * through --bleed.
+   */
+
+  --measure: clamp(34rem, 52vw, 46rem);
+  --rail: clamp(13rem, 13vw, 18rem);
+  --bleed: clamp(0rem, calc((100vw - 64rem) * 0.19), 7rem);
+  --gutter: clamp(1.1rem, 4vw, 3rem);
+
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.6rem;
+  --sp-7: 2.25rem;
+  --sp-8: 3rem;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  /*
+   * The height of the masthead. The contents strip sticks directly below
+   * it, so this agrees with the masthead's own padding: disagreement
+   * hides the strip under the bar or leaves a scrolling gap.
+   */
+}
+
+html[data-theme="auto"], html:not([data-theme]) {
+  color-scheme: light;
+  --bg: #fbfaf7;
+  --bg-raised: #ffffff;
+  --bg-sunken: #f4f1ea;
+  --bg-tint: #f6f4ee;
+  --ink: #1b1a17;
+  --ink-soft: #4a463f;
+  --ink-faint: #7d776c;
+  --line: #e3ded2;
+  --line-soft: #eceadf;
+  --accent: #2f5fd0;
+  --accent-soft: #e8effc;
+  --accent-ink: #1c4199;
+  --mark: #fdf3c4;
+  --shadow: 0 1px 2px rgb(27 26 23 / 0.05), 0 8px 24px -14px rgb(27 26 23 / 0.28);
+  --tok-comment: #8f897c;
+  --tok-keyword: #8f3fa8;
+  --tok-builtin: #2f5fd0;
+  --tok-function: #0f6a70;
+  --tok-type: #6b7a1c;
+  --tok-string: #1c7a52;
+  --tok-number: #b4531f;
+  --tok-tag: #b4531f;
+  --tok-attr: #8f3fa8;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fbfaf7;
+  --bg-raised: #ffffff;
+  --bg-sunken: #f4f1ea;
+  --bg-tint: #f6f4ee;
+  --ink: #1b1a17;
+  --ink-soft: #4a463f;
+  --ink-faint: #7d776c;
+  --line: #e3ded2;
+  --line-soft: #eceadf;
+  --accent: #2f5fd0;
+  --accent-soft: #e8effc;
+  --accent-ink: #1c4199;
+  --mark: #fdf3c4;
+  --shadow: 0 1px 2px rgb(27 26 23 / 0.05), 0 8px 24px -14px rgb(27 26 23 / 0.28);
+  --tok-comment: #8f897c;
+  --tok-keyword: #8f3fa8;
+  --tok-builtin: #2f5fd0;
+  --tok-function: #0f6a70;
+  --tok-type: #6b7a1c;
+  --tok-string: #1c7a52;
+  --tok-number: #b4531f;
+  --tok-tag: #b4531f;
+  --tok-attr: #8f3fa8;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #14151a;
+  --bg-raised: #1b1d23;
+  --bg-sunken: #101116;
+  --bg-tint: #1d1f26;
+  --ink: #e9e7e3;
+  --ink-soft: #b6b2ab;
+  --ink-faint: #837e76;
+  --line: #2b2e36;
+  --line-soft: #23252c;
+  --accent: #7aa5ff;
+  --accent-soft: #1b2740;
+  --accent-ink: #a9c4ff;
+  --mark: #403a1c;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 30px -16px rgb(0 0 0 / 0.8);
+  --tok-comment: #6f6a60;
+  --tok-keyword: #d08ae0;
+  --tok-builtin: #7aa5ff;
+  --tok-function: #5fd0cf;
+  --tok-type: #b9d16a;
+  --tok-string: #7fd6a2;
+  --tok-number: #f0a97a;
+  --tok-tag: #f0a97a;
+  --tok-attr: #d08ae0;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] {
+    color-scheme: dark;
+    --bg: #14151a;
+    --bg-raised: #1b1d23;
+    --bg-sunken: #101116;
+    --bg-tint: #1d1f26;
+    --ink: #e9e7e3;
+    --ink-soft: #b6b2ab;
+    --ink-faint: #837e76;
+    --line: #2b2e36;
+    --line-soft: #23252c;
+    --accent: #7aa5ff;
+    --accent-soft: #1b2740;
+    --accent-ink: #a9c4ff;
+    --mark: #403a1c;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 30px -16px rgb(0 0 0 / 0.8);
+    --tok-comment: #6f6a60;
+    --tok-keyword: #d08ae0;
+    --tok-builtin: #7aa5ff;
+    --tok-function: #5fd0cf;
+    --tok-type: #b9d16a;
+    --tok-string: #7fd6a2;
+    --tok-number: #f0a97a;
+    --tok-tag: #f0a97a;
+    --tok-attr: #d08ae0;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--step-0);
+  line-height: 1.58;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection { background: var(--accent-soft); color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.6em 1em;
+  z-index: 99;
+  border-radius: 0 0 var(--radius-sm) 0;
+  font-family: var(--sans);
+}
+.skip:focus { left: 0; }
+
+/* ------------------------------------------------------------------ chrome */
+
+.masthead {
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.masthead-inner {
+
+/* aligns with the shell, so the wordmark sits over the contents rail */
+
+  max-width: calc(var(--measure) + var(--rail) + var(--sp-7) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding: 0.7rem var(--gutter);
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-4);
+}
+
+/*
+ * The wordmark is a drawn SVG, not text, so link styling (colour,
+ * underline, visited state) never applies to it. The accessible name
+ * lives on the link as `aria-label`; the SVG itself is `aria-hidden`.
+ */
+
+a.wordmark {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-sm);
+}
+a.wordmark:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Inside the bar, which no longer has vertical padding of its own. */
+
+.masthead-inner > a.wordmark { display: flex; align-items: center; flex: 0 0 auto; }
+
+/*
+ * Plain links in the bar are flex containers, so stretched bar height
+ * centres their text exactly like the dropdown trigger beside them.
+ */
+
+.doc-nav { margin-left: auto; flex: 0 0 auto; }
+.doc-nav > .doc-link { display: flex; align-items: center; }
+.drop-toggle { padding-block: 0.7rem; font-size: 0.95rem; }
+.doc-nav > .icon-link { align-self: center; }
+.wordmark-svg { display: block; height: 1.5rem; width: auto; overflow: visible; }
+.wordmark-svg .wordmark-lambda { fill: var(--accent); }
+.wordmark-svg .wordmark-rest { fill: var(--ink); }
+.wordmark-svg .wordmark-dim { fill: var(--ink-faint); }
+a.wordmark:hover .wordmark-rest { fill: var(--accent-ink); }
+a.wordmark:hover .wordmark-dim { fill: var(--accent); }
+
+.doc-nav {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-left: auto;
+  font-family: var(--sans);
+  font-size: var(--step--1);
+}
+.doc-link {
+  color: var(--ink-faint);
+  text-decoration: none;
+  padding: 0.15em 0;
+  border-bottom: 1px solid transparent;
+}
+.doc-link:hover { color: var(--ink); }
+.doc-link.is-current { color: var(--ink); border-bottom-color: var(--accent); }
+
+.theme-toggle {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3em 0.8em;
+  cursor: pointer;
+}
+.doc-nav + .theme-toggle { margin-left: var(--sp-3); }
+.theme-toggle:hover { color: var(--ink); border-color: var(--ink-faint); }
+
+/* ------------------------------------------------------------------ layout */
+
+.shell {
+  max-width: calc(var(--measure) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding: var(--sp-7) var(--gutter) var(--sp-8);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+/*
+ * ---- contents -------------------------------------------------------------
+ * The same contents is in the HTML twice: as a rail for wide screens and inside a
+ * disclosure for narrow ones. CSS picks which is visible, so no JavaScript is involved
+ * and resizing can never leave the reader with neither.
+ */
+
+.toc-rail { display: none; }
+
+/*
+ * The narrow-screen contents is a sticky strip, never a top panel: a
+ * panel pushes the article below the fold, while the strip stays under
+ * the masthead and names the section being read. Opening it drops the
+ * same list over the article instead of displacing the text.
+ */
+
+.toc-sheet {
+  display: block;
+  margin-bottom: var(--sp-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  position: sticky;
+  top: var(--masthead-h);
+  z-index: 15;
+  box-shadow: 0 6px 18px -14px rgb(27 26 23 / 0.5);
+}
+.toc-sheet > summary {
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  font-weight: 600;
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  list-style: revert;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 2.75rem;
+}
+.toc-sheet > summary::after {
+  content: "";
+  margin-left: auto;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translate(-0.1rem, -0.1rem);
+  transition: transform 0.18s ease;
+}
+.toc-sheet[open] > summary::after {
+  transform: rotate(-135deg) translate(-0.15rem, -0.15rem);
+}
+.toc-sheet[open] { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+
+/*
+ * The section being read. It truncates rather than wrapping, because a strip that grows
+ * to two lines when it reaches a long section title is a strip that jumps under the
+ * reader's thumb.
+ */
+
+.sheet-name { color: var(--ink-faint); font-weight: 500; flex: none; }
+.toc-sheet .now {
+  color: var(--ink);
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  /*
+   * a left rule instead of a separator character, so the two labels stay visually
+   * distinct without spending width on punctuation
+   */
+
+  border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  padding-left: var(--sp-2);
+}
+.toc-sheet .now:empty { display: none; }
+.toc-sheet .toc { padding: 0 var(--sp-3) var(--sp-3); }
+.toc-sheet .toc-list a {
+  padding: 0.5em 0.6em;
+  min-height: 2.4em;
+  border-radius: var(--radius-sm);
+  border-left-width: 2px;
+}
+
+/*
+ * Opened, the strip drops over the article instead of displacing it. A contents that
+ * pushes the text down while you are trying to find where you are in it is worse than
+ * one that covers it, because the strip stays put either way and one tap puts it away
+ * again.
+ */
+
+.toc-sheet[open] .toc {
+  max-height: min(38vh, 21rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--line-soft);
+  background: var(--bg-raised);
+}
+@media (max-width: 48rem) {
+
+  /*
+   * Two columns once there is room for them. A single column of a long contents is
+   * taller than the strip can usefully drop over the article.
+   */
+
+  .toc-sheet .toc-list { columns: 2; column-gap: var(--sp-3); }
+  .toc-sheet .toc-list li { break-inside: avoid; }
+  .toc-sheet .toc-list .toc-list { columns: 1; }
+}
+.toc-sheet .toc-title { display: none; }
+
+/*
+ * The rail's visibility is decided by source order: the base rule hides
+ * it and the wide-screen query shows it at equal specificity, so the
+ * query must come after the base rule.
+ */
+
+@media (min-width: 62rem) {
+  .toc-sheet { display: none; }
+  .toc-rail {
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+    position: sticky;
+    top: 5.5rem;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  .main { grid-column: 2; grid-row: 1; }
+  .shell {
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: var(--sp-7);
+    max-width: calc(var(--measure) + var(--rail) + var(--sp-7) + var(--gutter) * 2);
+  }
+
+  /*
+   * The footer names its own grid row instead of relying on
+   * auto-placement, which lays it beside the article when the rail runs
+   * taller than the text.
+   */
+
+  .shell > .site-footer { grid-column: 1 / -1; grid-row: 2; }
+
+  /*
+   * Row placement for pages with a hero. These rules live inside the
+   * wide-screen query only: on the narrow single column, auto-placement
+   * already stacks hero, sheet, article, and footer in document order.
+   */
+
+  .shell:has(> .hero) > .hero { grid-row: 1; grid-column: 1 / -1; }
+  .shell:has(> .hero) > .toc-rail,
+  .shell:has(> .hero) > .main { grid-row: 2; }
+  .shell:has(> .hero) > .site-footer { grid-row: 3; }
+}
+
+/*
+ * A float that holds several pictures: a two-column `figure*` or a `minipage` layout.
+ * They sit side by side and wrap, rather than stacking into a column of small images.
+ */
+
+.float-grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  align-items: start;
+}
+.float-grid img { width: 100%; max-width: none; }
+
+/*
+ * Columns of one float share a fixed height so compared diagrams scale
+ * alike instead of reading as unrelated figures at different sizes.
+ */
+
+.float-cols { align-items: stretch; }
+.float-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+.float-cols .float-col > p {
+  margin: 0;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.005em;
+}
+.float-cols .float-col img {
+
+/* equal for every column: the comparison the author drew */
+
+  height: clamp(9rem, 18vw, 21rem);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+.float-cols .float-col > .math-block { max-width: 100%; }
+
+/* An `\includegraphics` written in prose rather than in a float. */
+
+.inline-img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+  /*
+   * The width a figure, table or listing may reach past the measure comes from
+   * `--bleed`, so the extra space on a wide monitor goes to the things that are limited
+   * by the measure rather than helped by it. It is a clamp and not a breakpoint, so it
+   * grows with the window instead of switching at one value, and it is zero until
+   * 64rem, so nothing moves on a narrow screen. It is symmetric, which keeps the text
+   * column exactly centred while the figures grow.
+   *
+   * Capped at the room actually available. Without the cap the bleed is applied inside
+   * a column that is itself narrower than the window, so on a wide monitor a figure
+   * runs out from under the contents rail and ends up behind it -- the one thing extra
+   * width must never do. `--bleed-max` is the smaller of the bleed and the half-width
+   * the text has to spare, which is the most a figure can take before it reaches the
+   * gutter.
+   */
+
+/*
+ * Tables keep the reading measure, not the figure bleed: extra width
+ * pushes a text-column table off the page.
+ */
+
+/*
+ * Wide and tall figures share one box: full width for wide plots, a
+ * height cap for tall ones, so the reader always sees the whole figure.
+ * Later rules override earlier ones at equal specificity, so the generic
+ * limit comes first and the exceptions after it.
+ */
+
+/*
+ * The height limit is divided by the figure's own scale, so it bounds what the reader
+ * sees rather than what the box measures. Without that, `scale=0.6` on a figure already
+ * at the limit comes out at 60% of the limit.
+ */
+
+.doc .float img, .doc .figure img, .doc .float .inline-img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(min(76vh, 42rem) / var(--fig-zoom, 1));
+}
+
+/*
+ * Columns of one float share a fixed height so compared diagrams scale
+ * alike instead of reading as unrelated figures at different sizes.
+ */
+
+/*
+ * This rule outranks the generic figure limit by specificity and source
+ * order, so both columns take the shared height.
+ */
+
+.doc .float-cols .float-col img {
+  height: clamp(12rem, 30vw, 30rem);
+  width: auto;
+  max-width: 100%;
+  max-height: none;
+  object-fit: contain;
+}
+
+/*
+ * Tables keep the reading measure, not the figure bleed: extra width
+ * pushes a text-column table off the page.
+ */
+
+.doc .table,
+.doc .float:has(.table) {
+  --bleed-max: 0px;
+}
+
+/*
+ * ---- figures in dark mode -------------------------------------------------
+ * Rendered figures are line art on white. Inverting keeps ink on ink and the hue
+ * rotation keeps the colours recognisable, instead of glaring white blocks.
+ */
+
+.main { min-width: 0; }
+.doc { max-width: var(--measure); margin-inline: auto; }
+.doc > p, .doc > section { max-width: 100%; }
+
+/* --------------------------------------------------------------- doc header */
+
+.doc-header {
+  margin-bottom: var(--sp-7);
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--line);
+}
+.doc-title {
+  font-size: var(--step-4);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  margin: 0 0 var(--sp-3);
+  font-weight: 600;
+  text-wrap: balance;
+}
+.doc-byline {
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+.doc-byline .sep { opacity: 0.5; margin-inline: 0.35em; }
+
+/*
+ * ---- author block
+ *
+ * Marks sit on the author name as in the source, each carrying its note
+ * as a tooltip. They take their own colour so the eye separates them
+ * from the name; the underline appears on hover only.
+ */
+
+.doc-authors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3) var(--sp-5);
+  margin: 0 auto;
+  max-width: 48rem;
+}
+.author { display: inline-flex; flex-direction: column; align-items: center; }
+.author-name {
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink);
+  position: relative;
+}
+.author-detail {
+  font-size: 0.78em;
+  line-height: 1.35;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+.author-mark {
+  margin-left: 0.14em;
+}
+.author-mark > a {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.78em;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+.author-mark > a:hover, .author-mark > a:focus-visible {
+  border-bottom-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/*
+ * The authors' own notes sit below the byline as in the paper, numbered
+ * to match their marks, with each mark linking down to its note.
+ */
+
+.author-notes {
+  list-style: none;
+  margin: var(--sp-4) auto 0;
+  padding: 0;
+  max-width: 44rem;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 0.8em;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.author-notes li {
+  display: flex;
+  gap: 0.15rem;
+  margin: 0 0 var(--sp-2);
+  scroll-margin-top: calc(var(--masthead-h) + var(--sp-4));
+}
+.author-notes li:target { color: var(--ink); }
+.author-notes .ref-num { color: var(--accent); font-weight: 700; }
+.author-notes .ref-body { min-width: 0; }
+
+.centered { text-align: center; }
+
+/* ---------------------------------------------------------------- headings */
+
+.doc h1, .doc h2, .doc h3, .doc h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-wrap: balance;
+  position: relative;
+}
+
+.doc h1, .doc .doc-title { font-size: var(--step-3); }
+
+.doc section + p, .doc section + ul, .doc section + ol, .doc section + .equation {
+  margin-top: var(--sp-4);
+}
+.doc section { margin-top: var(--sp-6); }
+.doc section.level-0 { margin-top: var(--sp-8); }
+
+.doc h2 { font-size: var(--step-2); margin: 0 0 var(--sp-3); }
+.doc h3 { font-size: var(--step-1); margin: 0 0 var(--sp-3); }
+.doc h4 {
+  font-size: var(--step-0);
+  font-weight: 650;
+  color: var(--ink);
+  margin: var(--sp-5) 0 var(--sp-2);
+}
+.doc h5 {
+  font-family: var(--sans);
+  font-size: 0.82em;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+
+.sec-num {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.55em;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.anchor {
+  position: absolute;
+  left: -0.85em;
+  top: 0;
+  color: var(--ink-faint);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  font-weight: 400;
+  font-family: var(--mono);
+  font-size: 0.7em;
+}
+.doc h2:hover .anchor, .doc h3:hover .anchor, .doc h4:hover .anchor,
+.anchor:focus-visible { opacity: 1; }
+
+/* ------------------------------------------------------------------- prose */
+
+.doc p { margin: 0 0 var(--sp-4); text-wrap: pretty; }
+.doc > p:first-of-type { font-size: 1.06em; }
+
+/*
+ * A bare URL is one unbreakable token; without wrapping, a long link
+ * pushes the whole page sideways on a narrow screen.
+ */
+
+.doc a, .doc .link-external, .doc code { overflow-wrap: anywhere; }
+
+.doc a {
+  color: var(--accent-ink);
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.15s ease;
+}
+.doc a:hover { text-decoration-color: var(--accent); }
+.link-external::after {
+  content: "\2197";
+  font-size: 0.72em;
+  margin-left: 0.12em;
+  vertical-align: 0.25em;
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+.link-broken {
+  color: #b4402f;
+  border-bottom: 1px dotted currentColor;
+  text-decoration: none;
+}
+html[data-theme="dark"] .link-broken { color: #ff8f7a; }
+
+.doc strong { font-weight: 650; }
+.doc em { font-style: italic; }
+.sc { font-variant-caps: small-caps; letter-spacing: 0.03em; }
+.cite {
+  color: var(--ink-soft);
+  font-size: 0.92em;
+
+  /*
+   * An unresolved multi-key citation is one long unbreakable run; it wraps
+   * instead of forcing the page sideways.
+   */
+
+  overflow-wrap: anywhere;
+}
+
+.doc code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--bg-sunken);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  padding: 0.12em 0.36em;
+  white-space: nowrap;
+}
+
+.doc blockquote {
+  margin: var(--sp-5) 0;
+  padding-left: var(--sp-4);
+  border-left: 3px solid var(--line);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.doc blockquote p:last-child { margin-bottom: 0; }
+
+/* -------------------------------------------------------------------- lists */
+
+.itemize { margin: 0 0 var(--sp-4); padding-left: 1.3em; }
+.itemize li { margin-bottom: var(--sp-2); }
+.itemize li::marker { color: var(--ink-faint); }
+.itemize li > p { margin-bottom: var(--sp-2); }
+.itemize li > p:last-child { margin-bottom: 0; }
+.itemize li > .itemize, .itemize li > .equation, .itemize li > .code-block {
+  margin-top: var(--sp-3);
+}
+.item-label { font-weight: 600; }
+
+.descriptions {
+  margin: 0 0 var(--sp-4);
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--sp-2) var(--sp-4);
+}
+.descriptions dt { font-weight: 600; color: var(--ink-soft); }
+.descriptions dd { margin: 0; }
+.descriptions dd > p { margin-bottom: var(--sp-2); }
+.descriptions dd > p:last-child { margin-bottom: 0; }
+
+/* --------------------------------------------------------------------- math */
+
+.math-inline {
+
+  /*
+   * Inline formulae may wrap: KaTeX already breaks at relations and binary
+   * operators on its own, and forbidding wraps pushes the page sideways.
+   */
+
+  overflow-wrap: break-word;
+}
+
+/*
+ * A long inline formula is not always breakable: KaTeX only breaks after
+ * a top-level relation or operator, so an unbreakable run scrolls inside
+ * its own box instead of pushing the page sideways.
+ */
+
+@media (max-width: 40rem) {
+  .math-inline {
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    vertical-align: bottom;
+  }
+}
+
+.math-block {
+  display: block;
+
+  /*
+   * Tighter than a paragraph gap. A display equation already separates itself with its
+   * own vertical space, and `--sp-5` above and below plus the line's own leading put a
+   * whole empty screen between two steps of a derivation. This is closer to what a
+   * typeset page does: a little more than a line's space, less than a paragraph's.
+   */
+
+  margin: var(--sp-4) 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0;
+}
+
+/*
+ * Two displays with nothing between them are one equation the author wrapped, or two
+ * steps of a derivation. They get less space between them than a display next to prose,
+ * which is what makes the chain read as a chain.
+ */
+
+.math-block + .math-block { margin-top: calc(var(--sp-3) * -0.5); }
+p > .math-block:first-child { margin-top: var(--sp-3); }
+p > .math-block:last-child { margin-bottom: var(--sp-3); }
+
+.equation { position: relative; }
+.equation .katex-display { margin: 0; }
+.eqno {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+}
+.katex { font-size: 1.05em; }
+.katex-display > .katex { font-size: 1.12em; }
+
+.math-fallback {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--mark);
+  border-color: transparent;
+}
+.math-block.math-fallback {
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-sm);
+}
+
+/* -------------------------------------------------------- code and tikz */
+
+.code-block {
+  margin: var(--sp-5) 0;
+  position: relative;
+  background: var(--bg-sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.code-block figcaption {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: var(--sp-2) var(--sp-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-tint);
+}
+.code-block pre {
+  margin: 0;
+  padding: var(--sp-3) var(--sp-4);
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+.code-block code {
+  background: none;
+  border: 0;
+  padding: 0;
+  white-space: pre;
+  font-size: inherit;
+  color: var(--ink);
+}
+
+/* syntax highlighting — KINDs are emitted by src/highlight.js */
+
+.code-block .tok-comment { color: var(--tok-comment); font-style: italic; }
+.code-block .tok-keyword { color: var(--tok-keyword); }
+.code-block .tok-builtin { color: var(--tok-builtin); }
+.code-block .tok-function { color: var(--tok-function); }
+.code-block .tok-type { color: var(--tok-type); }
+.code-block .tok-string { color: var(--tok-string); }
+.code-block .tok-number { color: var(--tok-number); }
+.code-block .tok-tag { color: var(--tok-tag); }
+.code-block .tok-attr { color: var(--tok-attr); }
+.code-block .tok-operator { color: var(--ink-soft); }
+.code-block .tok-punct { color: var(--ink-faint); }
+.code-block .tok-variable { color: inherit; }
+
+.copy {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-faint);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2em 0.65em;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.code-block:hover .copy, .copy:focus-visible { opacity: 1; }
+.copy:hover { color: var(--ink); }
+
+.tikz-block {
+  margin: var(--sp-5) 0;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-tint);
+  overflow: hidden;
+}
+.tikz-note {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-4);
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  border-bottom: 1px dashed var(--line);
+}
+.tikz-src {
+  margin: 0;
+  padding: var(--sp-4);
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------ floats, tables, figs */
+
+.float { margin: var(--sp-6) 0; text-align: center; }
+
+/*
+ * Images centre by block margin, not `text-align`: baseline layout would
+ * leave the leftover space after the image and lean every figure right.
+ * `box-sizing` is stated so padding and border stay inside the width.
+ */
+
+/*
+ * This layout's `:root` is not stripped -- only colour is -- so it is emitted ahead of
+ * the resolved token block and has to agree with src/tokens.js, which is where a metric
+ * is actually decided. Changing a measure in one place and not the other leaves a file
+ * that says one thing and renders another.
+ */
+
+.float img {
+  box-sizing: border-box;
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+  border: 1px solid var(--line-soft);
+}
+.float figcaption, .caption-only {
+  margin-top: var(--sp-3);
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  text-align: center;
+  line-height: 1.5;
+}
+.caption-only { margin: var(--sp-4) 0; }
+
+.missing-asset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+  margin: var(--sp-4) 0;
+  padding: var(--sp-5) var(--sp-4);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-tint);
+  color: var(--ink-faint);
+}
+.missing-asset-name {
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+.missing-asset-note {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.table { overflow-x: auto; }
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94em;
+  font-variant-numeric: tabular-nums;
+}
+.table th {
+  font-family: var(--sans);
+  font-size: 0.76em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 0.34em 0.5em;
+  border-bottom: 1.5px solid var(--line);
+  white-space: nowrap;
+}
+.table td {
+
+  /*
+   * Dense padding keeps long booktabs tables readable without scrolling
+   * past rows to reach the one wanted.
+   */
+
+  padding: 0.26em 0.5em;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  vertical-align: top;
+}
+.table tbody tr:last-child td { border-bottom: 1.5px solid var(--line); }
+.table tbody tr:hover { background: var(--bg-tint); }
+
+/*
+ * Vertical rules, only where the author drew horizontal ones under a group of columns.
+ * A `\cmidrule` is a statement that those columns belong together, and a vertical rule
+ * is the same statement read down the table instead of across it. In a booktabs table
+ * that has no `\cmidrule` they would be decoration the author did not ask for, so they
+ * are not added.
+ */
+
+.table-grouped th + th,
+.table-grouped td + td { border-left: 1px solid var(--line-soft); }
+.table-grouped thead th { border-bottom-color: var(--line); }
+
+/*
+ * The rule belongs between groups, not between every column of a group. The header
+ * carries the grouping, so it is where the division is drawn.
+ */
+
+.table-grouped thead th { border-left-color: var(--line); }
+.table-grouped tbody th:first-child, .table-grouped tbody td:first-child {
+  border-left: 0;
+}
+
+/* ------------------------------------------------------ abstract, callouts */
+
+.abstract {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.abstract-title {
+
+  /*
+   * The abstract label is part of the paper, not page chrome: set in the
+   * body serif at body size rather than as a banner over the text.
+   */
+
+  font-family: var(--serif);
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  margin: 0 0 var(--sp-3);
+}
+.abstract p:last-child { margin-bottom: 0; }
+
+.callout {
+  margin: var(--sp-5) 0;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-tint);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+/*
+ * Box labels need a higher-specificity selector (`.doc .callout-kind`)
+ * because the prose rule (`.doc p`) otherwise wins and leaves a blank
+ * line between the label and its text. The box's padding is the spacing;
+ * the label's margin only gaps it from the text it introduces.
+ */
+
+.doc .callout-kind, .doc .abstract-title { margin-bottom: var(--sp-1); }
+.callout > p:first-child, .abstract > p:first-child { margin-top: 0; }
+.callout p, .abstract p { margin-bottom: var(--sp-2); }
+.callout p:last-child, .abstract p:last-child { margin-bottom: 0; }
+
+.callout-kind {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin: 0 0 var(--sp-1) !important;
+}
+.callout-definition { border-left-color: #b07d2b; }
+.callout-definition .callout-kind { color: #b07d2b; }
+.callout-proof {
+  background: none;
+  border-left-color: var(--line);
+  color: var(--ink-soft);
+}
+.qed { float: right; color: var(--ink-faint); margin-left: var(--sp-3); }
+
+/*
+ * ---- admonitions
+ *
+ * A banner, not a theorem: a filled ground and a rule, so it is found while skimming
+ * rather than read as another proposition. The tone is a class rather than the
+ * environment name so `caution` and `warning` can agree, and so a theme can repaint all
+ * of them from four tokens.
+ */
+
+.callout-tone-info,
+.callout-tone-tip,
+.callout-tone-warn,
+.callout-tone-danger {
+  border-left-width: 4px;
+  border-radius: var(--radius-sm);
+  padding: var(--sp-4);
+  border: 1px solid;
+  border-left-width: 4px;
+}
+.callout-tone-info {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.callout-tone-info .callout-kind { color: var(--accent-ink); }
+.callout-tone-tip {
+  background: color-mix(in srgb, #1f8a5f 12%, var(--bg-raised));
+  border-color: color-mix(in srgb, #1f8a5f 34%, transparent);
+}
+.callout-tone-tip .callout-kind { color: #1a6d4c; }
+.callout-tone-warn {
+
+  /*
+   * Yellow. The one tone that has to read as "stop and read this": it is used for
+   * attribution requirements and licence terms, where missing it is a real problem
+   * rather than a style one.
+   */
+
+  background: color-mix(in srgb, #d9a406 16%, var(--bg-raised));
+  border-color: color-mix(in srgb, #b07d2b 45%, transparent);
+}
+.callout-tone-warn .callout-kind { color: #8a5f10; }
+.callout-tone-danger {
+  background: color-mix(in srgb, #d64545 12%, var(--bg-raised));
+  border-color: color-mix(in srgb, #c0392b 40%, transparent);
+}
+.callout-tone-danger .callout-kind { color: #a5281c; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --warn-bg: color-mix(in srgb, #f2cc60 14%, var(--bg-raised));
+    --danger-bg: color-mix(in srgb, #f38ba8 13%, var(--bg-raised));
+    --tip-bg: color-mix(in srgb, #a6e3a1 12%, var(--bg-raised));
+  }
+  html:not([data-theme="light"]) .callout-tone-warn { background: var(--warn-bg); }
+  html:not([data-theme="light"]) .callout-tone-danger { background: var(--danger-bg); }
+  html:not([data-theme="light"]) .callout-tone-tip { background: var(--tip-bg); }
+  html:not([data-theme="light"]) .callout-tone-warn .callout-kind { color: #f9e2af; }
+  html:not([data-theme="light"]) .callout-tone-danger .callout-kind { color: #f5b8c4; }
+  html:not([data-theme="light"]) .callout-tone-tip .callout-kind { color: #b6e7b0; }
+}
+
+/*
+ * ---- tooltips
+ *
+ * The bubble is drawn by CSS on hover *and* on focus, so it is reachable from a
+ * keyboard. It is hidden with `visibility` rather than `display` so it can be
+ * transitioned, and it is `pointer-events: none` so it never sits between the pointer
+ * and the thing that summoned it.
+ */
+
+.tooltip {
+  position: relative;
+  border-bottom: 1px dotted var(--ink-faint);
+  cursor: help;
+}
+.tip-bubble {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  bottom: calc(100% + 0.4rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(0.25rem);
+  z-index: 40;
+  max-width: 17rem;
+  width: max-content;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+  color: var(--bg-raised);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  text-align: left;
+  letter-spacing: normal;
+  text-transform: none;
+  box-shadow: var(--shadow);
+  transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s;
+}
+.tooltip:hover .tip-bubble,
+.tooltip:focus-visible .tip-bubble,
+.tooltip:focus .tip-bubble {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/*
+ * On a touch screen there is no hover and no focus ring to tap, so the bubble would be
+ * unreachable. The `title` attribute still carries the text, which is what the browser
+ * shows on a long press.
+ */
+
+@media (hover: none) {
+  .tip-bubble { display: none; }
+}
+
+/* ---------------------------------------------------------------- footnotes */
+
+.fnref a { text-decoration: none; font-size: 0.72em; vertical-align: super; }
+.footnotes {
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-size: 0.92em;
+  color: var(--ink-soft);
+}
+.footnotes h2 {
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  margin: 0 0 var(--sp-3);
+}
+
+/*
+ * Inside the references section the notes are a subheading of the list they sit under,
+ * so they are set like one: sentence case, a size that reads as a level below
+ * "References", and no rule of their own. The rule above a standalone notes block is
+ * what separates it from the prose; inside the list there is nothing to separate it
+ * from but the entries above it.
+ */
+
+.footnotes-inline { margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 0; }
+.footnotes-inline h3 {
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  font-weight: 650;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  margin: 0 0 var(--sp-2);
+}
+.footnotes ol { margin: 0; padding-left: 1.2em; }
+.footnotes li { margin-bottom: var(--sp-2); }
+.fn-back { text-decoration: none; margin-left: 0.3em; }
+
+/* ---------------------------------------------------------------- the rail */
+
+.toc-title {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--ink-faint);
+  margin: 0 0 var(--sp-3);
+}
+.toc-list { list-style: none; margin: 0; padding: 0; }
+.toc-list .toc-list { padding-left: var(--sp-3); margin-top: 2px; }
+.toc-list a {
+  display: block;
+  padding: 0.22em 0.5em 0.22em 0.6em;
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  line-height: 1.45;
+  color: var(--ink-faint);
+  text-decoration: none;
+  border-left: 2px solid var(--line-soft);
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+.toc-list a:hover { color: var(--ink); border-left-color: var(--ink-faint); }
+.toc-list a.is-active {
+  color: var(--accent-ink);
+  border-left-color: var(--accent);
+  background: var(--accent-soft);
+}
+.toc-num {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  margin-right: 0.45em;
+  font-size: 0.92em;
+}
+.toc-list a.is-active .toc-num { color: var(--accent); }
+
+/*
+ * ---- beamer frames ---------------------------------------------------------
+ * A `frame` is a slide, not a paragraph. Converted to a page it becomes a panel, so the
+ * reader can see where one slide ends and the next begins — the structure a deck has
+ * and a document does not.
+ */
+
+.doc section.frame {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-5);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.doc section.frame > h2:first-child { margin-top: 0; }
+.doc section.frame.untitled { padding-top: var(--sp-5); }
+.doc section.frame > .float:first-child { margin-top: 0; }
+
+/* ---------------------------------------------------------------- colophon */
+
+/*
+ * ---- citations -------------------------------------------------------------
+ * A citation is the one marker on the page a reader follows, so it has to look like
+ * one: raised, small, and unmistakably a link. The key is shown rather than a number
+ * because there is no .bbl to resolve it against.
+ */
+
+.citeref {
+  font-size: 0.78em;
+  vertical-align: super;
+  line-height: 0;
+  white-space: nowrap;
+}
+.citeref a {
+  color: var(--accent-ink);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  padding: 0 0.06em;
+  font-family: var(--sans);
+}
+.citeref a:hover {
+  background: var(--accent-soft);
+  border-bottom-color: var(--accent);
+}
+
+/*
+ * ---- the reference list ----------------------------------------------------
+ * One entry per line. Wrapped prose for a key that is not a title reads as noise, and
+ * the note above it is what keeps the list honest.
+ */
+
+.references { margin-top: var(--sp-8); }
+.references > h2 {
+  font-size: var(--step-1);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1.5px solid var(--line);
+}
+.ref-note {
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  line-height: 1.5;
+  padding: var(--sp-3) var(--sp-4);
+  margin: 0 0 var(--sp-4);
+  background: var(--bg-tint);
+  border-left: 3px solid var(--line);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.ref-list { list-style: none; margin: 0; padding: 0; counter-reset: ref; }
+.ref-entry {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--line-soft);
+  scroll-margin-top: 6rem;
+}
+.ref-entry:last-child { border-bottom: 0; }
+.ref-entry:target {
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.ref-key {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+/*
+ * ---- figures -----------------------------------------------------------
+ *
+ * Figures keep their authored colours in dark mode, presented on a light
+ * plate as in a dark-mode PDF reader. Inverting would remap every hue
+ * and the diagram would stop meaning what its author drew.
+ */
+
+.float img, .inline-img {
+  background: var(--figure-plate, #fff);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-2);
+}
+html[data-theme="dark"] { --figure-plate: #fbfaf7; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) { --figure-plate: #fbfaf7; }
+}
+.float-grid img { padding: var(--sp-2); }
+
+.colophon {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+}
+.colophon .sep { opacity: 0.45; }
+.colophon code {
+  font-size: 0.9em;
+  background: var(--bg-sunken);
+  border: 1px solid var(--line-soft);
+}
+.index-list a { font-size: 1.05em; }
+
+/* ------------------------------------------------------------------ motion
+
+   Off unless asked for. An animation on load is not a nicety: it delays the
+   first read of every section below the fold, it runs on every scroll back up,
+   and on a long paper it is a lot of movement before any text has been read.
+   `motion: on` in the config turns it on; `prefers-reduced-motion` still wins,
+   because a reader who has asked the operating system for less movement should
+   not have to also find a config file. */
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="on"] .doc section,
+  html[data-motion="on"] .abstract,
+  html[data-motion="on"] .callout,
+  html[data-motion="on"] .float,
+  html[data-motion="on"] .code-block,
+  html[data-motion="on"] .tikz-block,
+  html[data-motion="on"] .itemize,
+  html[data-motion="on"] .descriptions {
+    animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
+  html[data-motion="on"] .toc { animation: fade 0.6s ease backwards 0.1s; }
+
+  /*
+   * The sticky contents strip slides in only when motion is on, so it is in place
+   * before first paint otherwise rather than arriving late.
+   */
+
+  html[data-motion="on"] .now-strip { animation: drop 0.3s ease backwards; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------- print */
+
+@media print {
+  :root {
+    --bg: #fff;
+    --bg-raised: #fff;
+    --bg-sunken: #fff;
+    --bg-tint: #fff;
+    --ink: #000;
+    --ink-soft: #222;
+    --ink-faint: #555;
+    --line: #bbb;
+    --line-soft: #ddd;
+    --accent: #000;
+    --accent-ink: #000;
+  }
+  html[data-theme] { color-scheme: light; }
+  body { font-size: 10.5pt; line-height: 1.5; }
+  .masthead, .toc-rail, .toc-sheet, .copy, .anchor, .skip { display: none !important; }
+  .shell { display: block; max-width: none; padding: 0; }
+  .doc { max-width: none; }
+  .math-block, .equation { break-inside: avoid; }
+  .figure, .float, .code-block, .abstract, .callout { break-inside: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+  .doc section { break-inside: auto; margin-top: 1.5em; }
+  a { color: inherit; text-decoration: none; }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+  }
+  * { animation: none !important; transition: none !important; }
+  @page { margin: 18mm 16mm; }
+}
+
+/*
+ * ---- a second accent
+ *
+ * One accent colour does two jobs on a page, and the page reads as having one idea
+ * rather than several: the links, the marker on the heading you are in, the number on a
+ * footnote, the label above a code block -- all of them the same blue, so none of them
+ * is distinguishable from any other and the eye stops treating colour as meaning
+ * anything.
+ *
+ * The second accent is the same idea in a second hue, given to the things that are
+ * *labels* rather than things that are *links*: the language a block of code is in, the
+ * number on a figure, the marker on the section you are reading. So a blue thing is
+ * always somewhere to go, and a teal thing is always a label you are reading.
+ */
+
+.code-block figcaption { color: var(--accent-2); }
+.doc figcaption .ref-num,
+.doc .author-notes .ref-num { color: var(--accent-2); }
+.doc .caption-num { color: var(--accent-2); }
+.toc-link[aria-current="true"], .toc-link.is-here {
+  border-inline-start-color: var(--accent-2);
+}
+
+/*
+ * ---- the type scale, stepped
+ *
+ * Type changes in fixed steps at layout breakpoints, never continuously
+ * with the viewport: continuous sizing re-wraps the document on every
+ * frame of a resize. `:root:root` outranks the palette's later `:root`
+ * block, which would otherwise win at equal specificity. The measure
+ * steps with the type for the same reason.
+ */
+
+@media (min-width: 40rem) {
+  :root:root {
+    --step-0: 1.125rem;
+    --step-1: 1.25rem;
+    --step-2: 1.5rem;
+    --step-3: 1.875rem;
+    --step-4: 2.5rem;
+    --measure: 38rem;
+  }
+}
+@media (min-width: 62rem) {
+  :root:root {
+    --step-0: 1.1875rem;
+    --step-1: 1.3125rem;
+    --step-2: 1.625rem;
+    --step-3: 2.0625rem;
+    --step-4: 2.75rem;
+    --measure: 40rem;
+  }
+}
+@media (min-width: 80rem) {
+  :root:root {
+    --step-0: 1.25rem;
+    --step-1: 1.375rem;
+    --step-2: 1.75rem;
+    --step-3: 2.25rem;
+    --step-4: 3rem;
+    --measure: 42rem;
+  }
+}
+
+/*
+ * ---- dropdowns in the masthead
+ *
+ * The trigger's arrow points left toward the menu, which opens as a run
+ * of options laid into the bar itself: one line, divided by rules, with
+ * no separate panel. Hover and focus-within open it; the button
+ * underneath toggles it on touch screens. One line per option.
+ */
+
+.drop { position: relative; display: flex; align-items: stretch; }
+.drop-toggle {
+
+  /*
+   * Masthead controls stay full-size: small type in the bar reads as the
+   * least important thing on the page, in the place the eye goes first.
+   */
+
+  font: inherit;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  background: none;
+  border: 0;
+  padding: 0.15rem 0;
+  margin: 0;
+  cursor: pointer;
+  color: var(--ink-soft);
+
+  /*
+   * Trigger and options share one line height so the row centres straight
+   * instead of offsetting the options by a few pixels.
+   */
+
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+}
+.drop-toggle:hover, .drop:focus-within .drop-toggle { color: var(--ink); }
+
+/*
+ * A triangle pointing at the menu, rotating a quarter turn when the menu
+ * opens, so the open state lives in the control rather than only in the
+ * reader's memory.
+ */
+
+.drop-toggle::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 0.45rem;
+  border-top: 0.32rem solid transparent;
+  border-bottom: 0.32rem solid transparent;
+  border-right: 0.44rem solid currentColor;
+  opacity: 0.55;
+  transition: transform 0.16s ease, opacity 0.16s ease;
+}
+.drop:hover .drop-toggle::before,
+.drop:focus-within .drop-toggle::before,
+.drop[data-open="true"] .drop-toggle::before {
+  transform: rotate(90deg);
+  opacity: 0.85;
+}
+
+/*
+ * The menu is the bar, opened: it borrows the bar's translucent surface
+ * and blur, sits flush on the bar's lower edge with no gap or shadow,
+ * and lays its options in a single row divided by rules.
+ */
+
+.drop-menu {
+  position: absolute;
+  right: calc(100% + 0.6rem);
+  top: 0;
+  z-index: 30;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-inline: 0.15rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(0.4rem);
+  transition: opacity 0.13s ease, transform 0.13s ease, visibility 0.13s;
+}
+.drop:hover .drop-menu,
+.drop:focus-within .drop-menu,
+.drop[data-open="true"] .drop-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/*
+ * Dividers sit between options, never before the first, so they are
+ * drawn on every option but the first child.
+ */
+
+.drop-link {
+  display: flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.drop-link + .drop-link { border-left: 1px solid var(--line); border-radius: 0; }
+.drop-link:hover, .drop-link:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+.drop-label { display: block; }
+
+.icon-link {
+  color: var(--ink-faint);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem;
+  border-radius: var(--radius-sm);
+}
+.icon-link:hover { color: var(--ink); background: var(--bg-tint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .drop-menu, .drop-toggle::before { transition: none; }
+}
+
+@media (max-width: 40rem) {
+
+  /*
+   * Touch screens have no hover, so the button toggles `data-open` and the
+   * menu pins to the display at full width.
+   */
+
+  .drop-menu {
+    position: fixed;
+    left: var(--gutter);
+    right: var(--gutter);
+    top: calc(var(--masthead-h) * 1.18);
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-1);
+    padding: var(--sp-2) 0;
+    background: var(--bg);
+    border-top: 1px solid var(--line-soft);
+    transform: translateY(-0.3rem);
+  }
+  .drop-link { white-space: normal; padding: 0.3rem 0.55rem; font-size: 0.9rem; }
+  .drop-link + .drop-link { border-left: 0; }
+  .drop-link + .drop-link::before {
+    content: "|";
+    margin-right: 0.55rem;
+    color: var(--ink-faint);
+    opacity: 0.6;
+  }
+}
+
+/*
+ * Journal paragraphs.
+ *
+ * The first line is indented and the rest is not, which is how a printed journal marks
+ * a paragraph boundary without a blank line. A web column that puts an empty line
+ * between every paragraph does the same job with twice the vertical space, and loses
+ * the run of a proof while it does it.
+ */
+
+.doc .indent { margin: 0 0 var(--sp-3); }
+.doc .indent > p { margin: 0; }
+.doc .indent > p + p { text-indent: 1.5em; }
+.doc .indent > :first-child { text-indent: 1.5em; }
+.doc .indent > .display, .doc .indent > .equation, .doc .indent > figure,
+.doc .indent > .math-block, .doc .indent > .code-block, .doc .indent > ul,
+.doc .indent > ol, .doc .indent > .itemize, .doc .indent > .enumerate {
+  text-indent: 0;
+}
+
+/*
+ * ---- a display equation that is wider than the column
+ *
+ * Three fallbacks, tried in order: shrink the equation (`--eq-fit`, set
+ * by script and floored for subscript legibility), bleed it into the
+ * margin beside the column, and only then let it scroll.
+ */
+
+.equation .katex, .math-block .katex {
+  font-size: calc(1em * var(--eq-fit, 1));
+}
+.equation.eq-over, .math-block.eq-over {
+  width: calc(100% + var(--sp-7) * 2);
+  margin-inline: calc(var(--sp-7) * -1);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+@media (max-width: 62rem) {
+
+  /*
+   * Below the two-column layout there is no rail to reach past, and the margin is only
+   * what the gutter leaves.
+   */
+
+  .equation.eq-over, .math-block.eq-over {
+    width: calc(100% + var(--gutter) * 2);
+    margin-inline: calc(var(--gutter) * -1);
+  }
+}
+
+/*
+ * KaTeX centres its strut with margins, so a shrunken equation stays
+ * vertically centred in its box rather than sitting on the baseline.
+ */
+
+.equation .katex-display { margin: 0; }
+
+/*
+ * Fragment navigation must clear the sticky masthead, or headings stop
+ * hidden behind the bar. Every linkable heading (and the section
+ * wrapper, for `:target`) carries a scroll margin of the bar's height
+ * plus a little air.
+ */
+
+:where(section, h1, h2, h3, h4, h5, h6, [id]) {
+  scroll-margin-top: calc(var(--masthead-h) * 1.18 + var(--sp-3));
+}
+html { scroll-padding-top: calc(var(--masthead-h) * 1.18 + var(--sp-2)); }
+
+/*
+ * A note about the document, above its content. Deliberately quiet: a
+ * hairline rule, small-caps label, and soft ink, so it reads as part of
+ * the document rather than shouting over it.
+ */
+
+.doc-notice {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  max-width: var(--measure);
+  margin: 0 auto var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: 2px solid var(--accent-2);
+  background: var(--bg-tint);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--sans);
+  font-size: 0.88em;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.doc-notice-label {
+  display: block;
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 0.3rem;
+}
+.doc-notice p { margin: 0; }
+.doc-notice p + p { margin-top: 0.5rem; }
+
+/*
+ * ---- where each child of the shell goes
+ *
+ * Every child names its own grid row: rail and article share row one,
+ * the footer takes row two, and a hero takes row one and pushes the rest
+ * down. Named rows cannot strand the footer beside an overgrown rail the
+ * way numbered rows with fallback renumbering did.
+ */

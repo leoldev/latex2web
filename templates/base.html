@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="{{lang}}" data-theme="auto" data-motion="{{motion}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="generator" content="lambda2web">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='25' x='4' font-size='24' font-family='Georgia,serif' font-style='italic'%3E%CE%BB%3C/text%3E%3C/svg%3E">
+    {{head}}
+    {{styles}}
+</head>
+<body class="theme-{{theme}} palette-{{palette}}">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="{{home}}" title="Home" aria-label="{{wordmarkName}} home">
+        <svg class="wordmark-svg" viewBox="0 0 132 26" width="132" height="26" role="img" aria-hidden="true" focusable="false">
+          <text class="wordmark-lambda" x="0" y="21" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-style="italic">&lambda;</text>
+          <text class="wordmark-rest" x="14" y="21" font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="-0.3">tex<tspan class="wordmark-dim">2</tspan>web</text>
+        </svg>
+      </a>
+      {{nav}}
+    </div>
+  </header>
+
+  {{scrollCue}}
+
+  <div class="shell">
+    {{notice}}
+    {{hero}}
+    {{tocRail}}
+    {{tocSheet}}
+    <main id="main" class="main">
+      {{content}}
+      {{colophon}}
+    </main>
+    <!--
+      A sibling of the article, not a part of it: the footer belongs at the page's
+      width, spanning the rail, because it is furniture rather than prose. A
+      colophon -- a note about the document -- stays at the measure instead, which
+      each layout decides for itself.
+    -->
+    {{footer}}
+  </div>
+
+  {{scripts}}
+</body>
+</html>

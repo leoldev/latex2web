@@ -1,0 +1,50 @@
+node_modules/
+dist/
+dist-*/
+build/
+_site/
+out/
+demo-*/
+.cache/
+
+*.log
+*.tsbuildinfo
+.env
+.env.*
+
+.DS_Store
+Thumbs.db
+
+# planning docs are intentionally not tracked
+docs/
+
+.vscode/
+.idea/
+*.swp
+# scratch space for research notes
+.opencode/
+
+# The showcase's rendered-figure cache. It is regenerated from the sources, it is
+# several megabytes of intermediate PNGs, and nothing in the output refers to it:
+# the figures are copied out of it and the directory is left behind.
+site/.figures/
+
+# The showcase's own output is *not* ignored.
+#
+# It used to be, with the front page's `index.html` tracked at the root and the
+# three example pages written beside it in `site/`. So the front page shipped with
+# three cards pointing at a directory that was not in the repository: a fresh clone
+# served the landing page and 404'd on every example, and nothing in the build
+# said so, because the build had run perfectly well -- it just ran somewhere the
+# clone could not see. A showcase that links to pages it does not contain is not a
+# showcase, so `site/` is committed alongside `index.html` and the two cannot
+# disagree.
+
+# Per-layout stylesheets the showcase build writes at the root.
+#
+# Anchored, because unanchored it matches at every depth and swallowed the
+# stylesheets under `site/` -- which the committed pages link to. The site
+# published without a stylesheet: every page returned 200 and none of them was
+# styled. Nothing is written at the root any more, so this only guards a build
+# run from the wrong directory.
+/theme-*.css
